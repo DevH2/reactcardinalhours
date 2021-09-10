@@ -1,25 +1,46 @@
-import logo from './logo.svg';
 import './App.css';
+import {Component} from 'react'
+import PasswordInput from './Components/PasswordInput'
+import DisplayUsers from './Components/DisplayUsers'
+import bg from './Images/redgearbg (2).png'
+import settingIcon from './Images/output-onlinepngtools (3).png'
+import SignInSignOut from './Components/SignInSignOut';
+import CreateNewUser from './Components/CreateNewUser';
+import SearchBar from './Components/SearchBar.jsx';
+import { Snackbar, SnackbarContent } from '@material-ui/core';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  
+  
+  render(){
+    return (
+      <div className="container">
+          <div className={"split left"}>
+            <h1>Users</h1>
+            <SearchBar/>
+            <DisplayUsers/>
+          </div>
+
+          <div className={"split right"}>
+            <img src={bg} alt={"background"} className={"leftbg"}/>
+            <img src={settingIcon} alt={"settingsIcon"} className={"settingsIcon"}/>
+
+            <h1> Team 4159 Login</h1>
+            <div className={"center"}>      
+              <div className="test">
+                <CreateNewUser/>
+                <SignInSignOut/>
+              </div>
+
+              <Snackbar open={true}>
+                <SnackbarContent message={"No empty or duplicate passwords."}/>
+              </Snackbar>
+            </div>
+            
+          </div>
+      </div>
+    )
+  }
 }
 
 export default App;
