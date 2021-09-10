@@ -8,13 +8,14 @@ class SignInSignOut extends Component {
         }
         this.handleSignInOut = this.handleSignInOut.bind(this)
     }
-    async handleSignInOut(){
+    async handleSignInOut(userPassword){
         // axios.post('http://hours.lren.cf/users/signin', {"password": 'bob'})
         // .then((res)=> {
         //     console.log(res.data)
         // })
         // .catch((err) => console.log(err))
-        // .finally(() => console.log("executed")) //id name signedIn timeIn totalTime; usersname password                   
+        // .finally(() => console.log("executed")) //id name signedIn timeIn totalTime; usersname password  
+                   
     }
     componentDidMount(){
         this.handleSignInOut();
