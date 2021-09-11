@@ -16,7 +16,7 @@ export class CreateNewUser extends Component {
         this.handleAddUser = this.handleAddUser.bind(this)
     }
     componentDidMount(){
-
+        
     }
     clearInputs(){
         this.setState({usernameValue:""})
@@ -36,17 +36,17 @@ export class CreateNewUser extends Component {
     handlePasswordInput = event => this.setState({passwordValue:event.target.value})
     
     
-    async addUser(username, password){
+    async addUser(name, pass){
         const resObj = await fetch('https://hours.lren.cf/users/adduser', {
             method:'POST', 
-            headers: {'Content=Type': 'application/json'},
-            body: JSON.stringify({name: username, pass:password})
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({username: name, password:pass})
         })
         .then(res => console.log(res))
         .catch(err => {
             return console.log(err)
         })
-        console.log(`Added ${username}`)
+        console.log(`Added ${name}`)
     }
     render() {
         const {usernameValue, passwordValue} = this.state

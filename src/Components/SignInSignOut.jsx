@@ -1,31 +1,59 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 class SignInSignOut extends Component {
     constructor(props){
         super(props)
         this.state = {
-
+            passwordValue:null
         }
         this.handleSignInOut = this.handleSignInOut.bind(this)
+        this.handleUserInput = this.handleUserInput.bind(this)
     }
     async handleSignInOut(userPassword){
-        // axios.post('http://hours.lren.cf/users/signin', {"password": 'bob'})
-        // .then((res)=> {
-        //     console.log(res.data)
-        // })
-        // .catch((err) => console.log(err))
-        // .finally(() => console.log("executed")) //id name signedIn timeIn totalTime; usersname password  
-                   
+        if(this.state.passwordValue === null) return console.log("No empty passwords")
+        if(this.state.passwordValue.length === 0) return console.log("No empty passwords")
+        if(this.state.passwordValue.split(" ").length === 0) return console.log("No empty passwords")
+
+        const user = await fetch(`https://hours.lren.cf/users/getuserdata?password=${userPassword}`, {
+            method:'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })      
+        user.json().then(data => {
+            if(data.signedIn === 1){
+                fetch('https://hours.lren.cf/users/signout', {
+                    method: 'POST',
+                    headers: {
+                       'Content-Type': 'application/json' 
+                    },
+                    body: JSON.stringify({password:userPassword})
+                })
+                console.log(`Signed out ${data.name}`)
+            } else {
+                fetch('https://hours.lren.cf/users/signin', {
+                    method: 'POST',
+                    headers: {
+                       'Content-Type': 'application/json' 
+                    },
+                    body: JSON.stringify({password:userPassword})
+                })
+                console.log(`Signed in ${data.name}`)
+            }
+        })
+    }
+
+    
+    handleUserInput = event => {
+        this.setState({passwordValue: event.target.value})
     }
     componentDidMount(){
-        this.handleSignInOut();
     }
     render() {
         return (
             <div className={"login-in-out-container"}>
                 <div>Sign In/Out:</div>
-                <input type={"password"} className={"input"}/>
-                <button className={"buttons"} onClick={this.handleSignInOut}>Enter</button>
+                <input type={"password"} className={"input"} value={this.state.passwordValue} onChange={this.handleUserInput}  />
+                <button className={"buttons"} onClick={() => {this.handleSignInOut(this.state.passwordValue)}}>Enter</button>
             </div>
         )
     }

@@ -14,13 +14,17 @@ export class DisplayUsers extends Component {
     componentDidUpdate(){
         console.log(this.state.users)
     }
-    async getUsers(){     
-        const usersResponse = await fetch('https://hours.lren.cf/users/getusers')
-        usersResponse.json().then(data => {
+    async getUsers(){  
+        try {
+            const usersResponse = await fetch('https://hours.lren.cf/users/getusers')
+            usersResponse.json().then(data => {
             this.setState({users: data})
             console.log(data)
             return data;
         })                
+        } catch {
+            console.log("Couldn't retrieve users")
+        }        
     }
     render() {
         return (
