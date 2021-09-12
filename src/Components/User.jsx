@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Card, CardContent, withStyles, Typography } from '@material-ui/core';
 
+//MaterialUI styles
 const styles = theme => ({
     card: {
         borderRadius:"16px;",
@@ -40,15 +41,19 @@ class User extends Component {
     constructor(props){
         super(props)
         this.state = {
-            isSignedIn: this.props.isSignedIn
+            //Putting props in state var will need the use of componentWillReceiveProps() so no
         }
         
+    }
+    showTime(){
+        const {timeIn} = this.props //Time in milliseconds
+        return new Date(timeIn).toISOString().substr(11,8)
     }
     
     render() {
         const {classes} = this.props
-        const signInStyles = this.state.isSignedIn === 1 ? classes.signInText : classes.signOutText;
-        const signedInOutText = this.state.isSignedIn === 1 ? "IN" : "OUT"
+        const signInStyles = this.props.isSignedIn === 1 ? classes.signInText : classes.signOutText;
+        const signedInOutText = this.props.isSignedIn === 1 ? "IN" : "OUT"
         
         return (
             <div className={"user-container"}>
@@ -58,7 +63,7 @@ class User extends Component {
                         <Typography className={`${signInStyles}`}>SIGNED {signedInOutText}</Typography>
                     </CardContent>
                     <CardContent timeContainer>
-                        <Typography className={`${classes.text} ${classes.time} ${classes.topText}`}>Time In: 00:00:00 </Typography>
+                        <Typography className={`${classes.text} ${classes.time} ${classes.topText}`}>Time In: {this.showTime()} </Typography>
                         <Typography className={`${classes.text} ${classes.time}`}>Total Time: 00:00:00 </Typography>
                     </CardContent>
                 </Card>

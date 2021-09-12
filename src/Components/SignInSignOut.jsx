@@ -3,13 +3,13 @@ class SignInSignOut extends Component {
     constructor(props){
         super(props)
         this.state = {
-            passwordValue:null
+            passwordValue:""
         }
         this.handleSignInOut = this.handleSignInOut.bind(this)
         this.handleUserInput = this.handleUserInput.bind(this)
+        this.clearInput = this.clearInput.bind(this)
     }
     async handleSignInOut(userPassword){
-        if(this.state.passwordValue === null) return console.log("No empty passwords")
         if(this.state.passwordValue.length === 0) return console.log("No empty passwords")
         if(this.state.passwordValue.split(" ").length === 0) return console.log("No empty passwords")
 
@@ -40,12 +40,13 @@ class SignInSignOut extends Component {
                 console.log(`Signed in ${data.name}`)
             }
         })
+        this.clearInput()
     }
 
     
-    handleUserInput = event => {
-        this.setState({passwordValue: event.target.value})
-    }
+    handleUserInput = event => this.setState({passwordValue: event.target.value})
+    clearInput = () => this.setState({passwordValue:""})
+    
     componentDidMount(){
     }
     render() {

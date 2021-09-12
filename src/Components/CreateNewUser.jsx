@@ -7,8 +7,8 @@ export class CreateNewUser extends Component {
         this.state = {
             users: [],
             type:"password",
-            passwordValue: null,
-            usernameValue: null
+            passwordValue: "",
+            usernameValue: ""
         }
         this.clearInputs = this.clearInputs.bind(this)
         this.handleUsernameInput = this.handleUsernameInput.bind(this)
@@ -25,7 +25,6 @@ export class CreateNewUser extends Component {
     }
     handleAddUser(){
         const {usernameValue, passwordValue} = this.state
-        if(usernameValue === null || passwordValue === null) return console.log("empty pass or username")
         if(usernameValue.split(" ").length === 0 || passwordValue.split(" ").length === 0) return console.log("empty pass or username")
         if(usernameValue.length === 0 || passwordValue.length === 0) return console.log("empty pass or username")
         

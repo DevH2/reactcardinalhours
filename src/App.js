@@ -10,8 +10,13 @@ import SearchBar from './Components/SearchBar.jsx';
 import { Snackbar, SnackbarContent } from '@material-ui/core';
 
 class App extends Component {
-  
-  
+  constructor(){
+    super()
+    this.state = {
+      
+    }
+  }
+  updateUserList = () => this.setState({updater: this.state.updater+1})
   render(){
     return (
       <div className="container">
@@ -28,15 +33,14 @@ class App extends Component {
             <h1> Team 4159 Login</h1>
             <div className={"center"}>      
               <div className="test">
-                <CreateNewUser/>
-                <SignInSignOut/>
+                <CreateNewUser />
+                <SignInSignOut />
               </div>
 
               <Snackbar open={true}>
                 <SnackbarContent message={"No empty or duplicate passwords."}/>
               </Snackbar>
-            </div>
-            
+            </div> 
           </div>
       </div>
     )

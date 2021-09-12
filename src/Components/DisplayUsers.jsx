@@ -6,17 +6,21 @@ export class DisplayUsers extends Component {
         super(props);
         this.state = {
             users: [],
+            updater: false
         }
     }
     componentDidMount(){
-       this.getUsers()
+         setInterval(() => {
+             this.getUsers()
+             this.getTotalTime()
+        }, 1000);
+        
     }
     componentDidUpdate(){
-        console.log(this.state.users)
     }
     async getUsers(){  
         try {
-            const usersResponse = await fetch('https://hours.lren.cf/users/getusers')
+            const usersResponse = await fetch('https://hours.lren.cf/users/getusers?=bob')
             usersResponse.json().then(data => {
             this.setState({users: data})
             console.log(data)
@@ -26,12 +30,19 @@ export class DisplayUsers extends Component {
             console.log("Couldn't retrieve users")
         }        
     }
+    async getTotalTime(){ 
+        const usersResponse = await fetch('https://hours.lren.cf/users/getuserdata')
+        usersResponse.json().then(data => {
+            console.log(data + "hi")
+        })
+    }
+
     render() {
         return (
             <div className={"display-users"}>
                 <div>
                     {
-                    this.state.users.map(user => <User username={user.name} isSignedIn={user.signedIn}/>)
+                    this.state.users.map(user => <User username={user.name} isSignedIn={user.signedIn} timeIn={user.timeIn}/>)
                     }                 
                 </div>
             </div>
