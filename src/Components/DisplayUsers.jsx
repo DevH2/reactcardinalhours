@@ -12,7 +12,7 @@ export class DisplayUsers extends Component {
     componentDidMount(){
          setInterval(() => {
              this.getUsers()
-             this.getTotalTime()
+             //this.getTotalTime()
         }, 1000);
         
     }
@@ -20,10 +20,11 @@ export class DisplayUsers extends Component {
     }
     async getUsers(){  
         try {
-            const usersResponse = await fetch('https://hours.lren.cf/users/getusers?=bob')
+            const usersResponse = await fetch('https://hours.lren.cf/users/getusers')
             usersResponse.json().then(data => {
             this.setState({users: data})
-            console.log(data)
+            //console.log(data)
+            console.log( data[4].totalTime)
             return data;
         })                
         } catch {
@@ -31,19 +32,21 @@ export class DisplayUsers extends Component {
         }        
     }
     async getTotalTime(){ 
-        const usersResponse = await fetch('https://hours.lren.cf/users/getuserdata')
-        usersResponse.json().then(data => {
+        try{
+            const usersResponse = await fetch('https://hours.lren.cf/users/getuserdata?password=987')
+            usersResponse.json().then(data => {
             console.log(data + "hi")
         })
+        } catch {
+            console.log("Couldn't get total time for that user")
+        }
     }
 
     render() {
         return (
             <div className={"display-users"}>
                 <div>
-                    {
-                    this.state.users.map(user => <User username={user.name} isSignedIn={user.signedIn} timeIn={user.timeIn}/>)
-                    }                 
+                    {this.state.users.map(user => <User username={user.name} isSignedIn={user.signedIn} timeIn={user.timeIn} totalTime={user.totalTime}/>)}                 
                 </div>
             </div>
         )

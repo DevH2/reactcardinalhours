@@ -1,18 +1,31 @@
 import React, { Component } from 'react'
+import { Snackbar, SnackbarContent, withStyles} from '@material-ui/core'
+const styles = theme => ({
+    snackBar: {
+        marginTop: '10%',
+    }
+})
 class SignInSignOut extends Component {
     constructor(props){
         super(props)
         this.state = {
-            passwordValue:""
+            passwordValue:"",
+            isOpen: false
         }
         this.handleSignInOut = this.handleSignInOut.bind(this)
         this.handleUserInput = this.handleUserInput.bind(this)
         this.clearInput = this.clearInput.bind(this)
+        this.handleOnClose = this.handleOnClose.bind(this)
     }
     async handleSignInOut(userPassword){
-        if(this.state.passwordValue.length === 0) return console.log("No empty passwords")
-        if(this.state.passwordValue.split(" ").length === 0) return console.log("No empty passwords")
-
+        if(this.state.passwordValue.length === 0 || 
+           this.state.passwordValue.split(" ").length === 0
+        ){
+            this.setState({isOpen: true})
+            console.log(this.state.isOpen)
+            return console.log("No empty passwords")
+        }
+        
         const user = await fetch(`https://hours.lren.cf/users/getuserdata?password=${userPassword}`, {
             method:'GET',
             headers: {
@@ -46,6 +59,8 @@ class SignInSignOut extends Component {
     
     handleUserInput = event => this.setState({passwordValue: event.target.value})
     clearInput = () => this.setState({passwordValue:""})
+
+    handleOnClose = () => this.setState({isOpen: false})
     
     componentDidMount(){
     }
@@ -55,9 +70,14 @@ class SignInSignOut extends Component {
                 <div>Sign In/Out:</div>
                 <input type={"password"} className={"input"} value={this.state.passwordValue} onChange={this.handleUserInput}  />
                 <button className={"buttons"} onClick={() => {this.handleSignInOut(this.state.passwordValue)}}>Enter</button>
+                <Snackbar autoHideDuration={1000} open={this.state.isOpen} 
+                          onClose={this.handleOnClose} 
+                >
+                    <SnackbarContent message={"No empty or duplicate passwords."}/>
+                </Snackbar>
             </div>
         )
     }
 }
 
-export default SignInSignOut
+export default withStyles(styles)(SignInSignOut)

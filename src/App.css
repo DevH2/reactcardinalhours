@@ -135,6 +135,10 @@
   border-radius: 32px;
   display: block;
 }
+.buttons:hover {
+  border-color: lightslategrey;
+  font-weight: bold;
+}
 .create-user-container{
   display: flex;
   flex-direction: column;
@@ -172,3 +176,4 @@ h1{
   position: relative;
   top:10%;
 }
+

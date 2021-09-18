@@ -41,30 +41,36 @@ class User extends Component {
     constructor(props){
         super(props)
         this.state = {
-            //Putting props in state var will need the use of componentWillReceiveProps() so no
+            //Putting ajax call props in state var will need the use of componentWillReceiveProps() so no
         }
-        
     }
     showTime(){
         const {timeIn} = this.props //Time in milliseconds
         return new Date(timeIn).toISOString().substr(11,8)
     }
+    showTotalTime(){
+        const {totalTime} = this.props
+        return new Date(totalTime).toISOString().substr(11,8)
+    }
+    
     
     render() {
-        const {classes} = this.props
-        const signInStyles = this.props.isSignedIn === 1 ? classes.signInText : classes.signOutText;
-        const signedInOutText = this.props.isSignedIn === 1 ? "IN" : "OUT"
+        const {classes, isSignedIn, username, totalTime} = this.props
+        const signInStyles = isSignedIn === 1 ? classes.signInText : classes.signOutText;
+        const signedInOutText = isSignedIn === 1 ? "IN" : "OUT"
         
         return (
             <div className={"user-container"}>
                 <Card className={classes.card}>
                     <CardContent>
-                        <Typography className={`${classes.text} ${classes.topText}`}>{this.props.username}</Typography>
+                        <Typography className={`${classes.text} ${classes.topText}`}>{username}</Typography>
                         <Typography className={`${signInStyles}`}>SIGNED {signedInOutText}</Typography>
                     </CardContent>
                     <CardContent timeContainer>
                         <Typography className={`${classes.text} ${classes.time} ${classes.topText}`}>Time In: {this.showTime()} </Typography>
-                        <Typography className={`${classes.text} ${classes.time}`}>Total Time: 00:00:00 </Typography>
+                        <Typography className={`${classes.text} ${classes.time}`}>
+                            Total Time: {this.showTotalTime()} 
+                        </Typography>
                     </CardContent>
                 </Card>
             </div>
