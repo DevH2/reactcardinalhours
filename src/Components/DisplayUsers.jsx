@@ -11,8 +11,7 @@ export class DisplayUsers extends Component {
     }
     componentDidMount(){
          setInterval(() => {
-             this.getUsers()
-             //this.getTotalTime()
+             this.getUsers()       
         }, 1000);
         
     }
@@ -23,23 +22,11 @@ export class DisplayUsers extends Component {
             const usersResponse = await fetch('https://hours.lren.cf/users/getusers')
             usersResponse.json().then(data => {
             this.setState({users: data})
-            //console.log(data)
-            console.log( data[4].totalTime)
             return data;
         })                
         } catch {
             console.log("Couldn't retrieve users")
         }        
-    }
-    async getTotalTime(){ 
-        try{
-            const usersResponse = await fetch('https://hours.lren.cf/users/getuserdata?password=987')
-            usersResponse.json().then(data => {
-            console.log(data + "hi")
-        })
-        } catch {
-            console.log("Couldn't get total time for that user")
-        }
     }
 
     render() {
