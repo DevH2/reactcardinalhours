@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Card, CardContent, withStyles, Typography } from '@material-ui/core';
+import { traverseTwoPhase } from 'react-dom/test-utils';
 
 //MaterialUI styles
 const styles = theme => ({
@@ -50,6 +51,7 @@ class User extends Component {
     }
     showTotalTime(){
         const {totalTime} = this.props
+        if(!totalTime) return "00:00:00"
         return new Date(totalTime).toISOString().substr(11,8)
     }
     

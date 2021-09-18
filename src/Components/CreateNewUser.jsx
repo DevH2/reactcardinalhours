@@ -30,7 +30,7 @@ export class CreateNewUser extends Component {
             usernameValue.length === 0 || passwordValue.length === 0
         ){
             this.clearInputs()
-            return console.log("empty pass or username")
+            return this.props.createUserHandleOnOpen()
         } 
         this.addUser(usernameValue, passwordValue)
         this.clearInputs()

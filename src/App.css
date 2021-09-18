@@ -176,4 +176,8 @@ h1{
   position: relative;
   top:10%;
 }
+.empty-field-snackbar{
+  padding-left: 50%;
+  transform: translate(50%,0);
+}
 
