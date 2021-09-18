@@ -15,12 +15,14 @@ class App extends Component {
     super()
     this.state = {
       isOpen: false,
-      createUserIsOpen: false
+      createUserIsOpen: false,
+      searchText: ""
     }
     this.handleOnClose = this.handleOnClose.bind(this)
     this.handleOnOpen = this.handleOnOpen.bind(this)
     this.createUserHandleOnClose = this.createUserHandleOnClose.bind(this)
     this.createUserHandleOnOpen = this.createUserHandleOnOpen.bind(this)
+    this.handleSearchText = this.handleSearchText.bind(this)
   }
   //Snackbar functions
   handleOnClose = () => {this.setState({isOpen: false})}
@@ -28,6 +30,8 @@ class App extends Component {
 
   createUserHandleOnClose = () => {this.setState({createUserIsOpen: false})}
   createUserHandleOnOpen = () => {this.setState({createUserIsOpen: true})}
+
+  handleSearchText = text => {this.setState({searchText: text})}
 
   componentDidMount(){
     
@@ -38,13 +42,14 @@ class App extends Component {
       <div className="container">
           <div className={"split left"}>
             <h1>Users</h1>
-            <SearchBar/>
-            <DisplayUsers/>
+            <SearchBar handleSearchText={this.handleSearchText}/>
+            <DisplayUsers searchText={this.state.searchText}/>
           </div>
 
           <div className={"split right"}>
             <img src={bg} alt={"background"} className={"leftbg"}/>
             <img src={settingIcon} alt={"settingsIcon"} className={"settingsIcon"}/>
+            {/*<button className={"settingsIcon"}>S</button>*/}
 
             <h1> Team 4159 Login</h1>
             <div className={"center"}>      

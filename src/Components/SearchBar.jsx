@@ -2,8 +2,7 @@ import React, { Component, useState } from 'react'
 import icon from '../Images/search-bar-icon2.png'
 
 const SearchBar = (props) => {
-    const [usernameInput, setUsernameInput] = useState("")
-    const handleUserInput = event => setUsernameInput(event.target.value)
+    const {handleSearchText} = props
     return (
         <div className="search-bar-container">
             <img className="search-bar-icon" src={icon} alt="search-bar-icon"/>
@@ -11,8 +10,7 @@ const SearchBar = (props) => {
                 className="search-bar" 
                 type="text" 
                 placeholder="Search for users"      
-                value={usernameInput}  
-                onChange={handleUserInput}       
+                onChange={event => {handleSearchText(event.target.value)}}       
             />
         </div>
     )

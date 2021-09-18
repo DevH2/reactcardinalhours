@@ -30,10 +30,11 @@ export class DisplayUsers extends Component {
         }        
     }
     render() {
+        const filteredUsers = this.state.users.filter(user => user.name.includes(this.props.searchText))
         return (
             <div className={"display-users"}>
                 <div>
-                    {this.state.users.map(user => <User username={user.name} isSignedIn={user.signedIn} timeIn={user.timeIn} totalTime={user.totalTime}/>)}                 
+                    {filteredUsers.map(user => <User username={user.name} isSignedIn={user.signedIn} timeIn={user.timeIn} totalTime={user.totalTime}/>)}              
                 </div>
             </div>
         )
