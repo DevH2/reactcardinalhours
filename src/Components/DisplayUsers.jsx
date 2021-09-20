@@ -22,19 +22,18 @@ export class DisplayUsers extends Component {
             const usersResponse = await fetch('https://hours.lren.cf/users/getusers')
             usersResponse.json().then(data => {
             this.setState({users: data})
-            //console.log(this.state.users)
             return data;
         })                
         } catch {
-            console.log("Couldn't retrieve users")
+            console.log("Couldn't retrieve users") //turn into snackbar later
         }        
     }
     render() {
-        const filteredUsers = this.state.users.filter(user => user.name.includes(this.props.searchText))
+        const filteredUsers = this.state.users.filter(user => user.name.toLowerCase().includes(this.props.searchText.toLowerCase()))
         return (
             <div className={"display-users"}>
                 <div>
-                    {filteredUsers.map(user => <User username={user.name} isSignedIn={user.signedIn} timeIn={user.timeIn} totalTime={user.totalTime}/>)}              
+                    {filteredUsers.map(user=> <User key={user.name} username={user.name} isSignedIn={user.signedIn} timeIn={user.timeIn} totalTime={user.totalTime}/>)}              
                 </div>
             </div>
         )

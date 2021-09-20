@@ -21,13 +21,12 @@ export class CreateNewUser extends Component {
     clearInputs(){
         this.setState({usernameValue:""})
         this.setState({passwordValue:""})
-        console.log("cleared input")
     }
     handleAddUser(){
         const {usernameValue, passwordValue} = this.state
         if(
-            usernameValue.split(" ").length === 0 || passwordValue.split(" ").length === 0 ||
-            usernameValue.length === 0 || passwordValue.length === 0
+            !usernameValue.split(" ") || !passwordValue.split(" ") ||
+            !usernameValue || !passwordValue
         ){
             this.clearInputs()
             return this.props.createUserHandleOnOpen()

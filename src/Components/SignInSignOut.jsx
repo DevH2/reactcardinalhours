@@ -16,8 +16,8 @@ class SignInSignOut extends Component {
         this.clearInput = this.clearInput.bind(this)
     }
     async handleSignInOut(userPassword){
-        if(this.state.passwordValue.length === 0 || 
-           this.state.passwordValue.split(" ").length === 0
+        if(!this.state.passwordValue.length || 
+           !this.state.passwordValue.split(" ")
         )
             return this.props.handleOpen()
         

@@ -4,11 +4,13 @@ import PasswordInput from './Components/PasswordInput'
 import DisplayUsers from './Components/DisplayUsers'
 import bg from './Images/redgearbg (2).png'
 import settingIcon from './Images/output-onlinepngtools (3).png'
+import mobilebg from './Images/redgearbgmobile.PNG'
 import SignInSignOut from './Components/SignInSignOut';
 import CreateNewUser from './Components/CreateNewUser';
 import SearchBar from './Components/SearchBar.jsx';
 import { Snackbar, SnackbarContent } from '@material-ui/core';
 import SlideTransition from './Components/Transitions/SlideTransition'
+import getMobile from './DetectMobile'
 
 class App extends Component {
   constructor(){
@@ -34,11 +36,12 @@ class App extends Component {
   handleSearchText = text => {this.setState({searchText: text})}
 
   componentDidMount(){
-    
+    console.log(getMobile())
   }
-
+  
   render(){
     return (
+      !getMobile() ? 
       <div className="container">
           <div className={"split left"}>
             <h1>Users</h1>
@@ -76,7 +79,26 @@ class App extends Component {
               TransitionComponent={SlideTransition}>
               <SnackbarContent message={"No empty or duplicate fields."}/>
             </Snackbar>
+
           </div>
+      </div>
+      
+      
+      : 
+      
+      <div>
+        <h1> Team 4159 Login</h1>
+        <img src={mobilebg} alt={"background"} className={"leftbg"}/>
+        <SignInSignOut handleOpen={this.handleOnOpen}/>
+        <Snackbar 
+              autoHideDuration={1000} 
+              open={this.state.isOpen} 
+              onClose={this.handleOnClose} 
+              className={"empty-field-snackbar"}
+              TransitionComponent={SlideTransition}
+              >
+                <SnackbarContent message={"No empty or duplicate passwords."}/>
+        </Snackbar>
       </div>
     )
   }
