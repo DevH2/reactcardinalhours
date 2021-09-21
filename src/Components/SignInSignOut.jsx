@@ -58,11 +58,16 @@ class SignInSignOut extends Component {
     
     componentDidMount(){
     }
+    handleUserKeypress = event => {
+        if (event.key === 'Enter') {
+            this.handleSignInOut(this.state.passwordValue);
+        }
+    }
     render() {
         return (
             <div className={"login-in-out-container"}>
                 <div>Sign In/Out:</div>
-                <input type={"password"} className={"input"} value={this.state.passwordValue} onChange={this.handleUserInput}  />
+                <input type={"password"} className={"input"} value={this.state.passwordValue} onChange={this.handleUserInput} onKeyPress={this.handleUserKeypress} />
                 <button className={"buttons"} onClick={() => {this.handleSignInOut(this.state.passwordValue)}}>Enter</button>
             </div>
         )
