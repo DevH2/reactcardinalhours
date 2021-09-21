@@ -36,7 +36,8 @@ export class CreateNewUser extends Component {
     }
     handleUsernameInput = event => this.setState({usernameValue:event.target.value})
     handlePasswordInput = event => this.setState({passwordValue:event.target.value})
-    
+    handleUsernameKeyPress = event => {if (event.key === 'Enter') {this.passwordValueRef.focus()}}
+    handlePasswordKeyPress = event => {if (event.key === 'Enter') {this.handleAddUser()}}
     
     async addUser(name, pass){
         const resObj = await fetch('https://hours.lren.cf/users/adduser', {
@@ -55,9 +56,9 @@ export class CreateNewUser extends Component {
         return (
             <div className={"create-user-container"}>
                 <div>Create Username:</div>
-                <input className={"input"} value={usernameValue} onChange={this.handleUsernameInput}/>
+                <input className={"input"} value={usernameValue} onChange={this.handleUsernameInput} onKeyPress={this.handleUsernameKeyPress}/>
                 <div>Create Password:</div>
-                <input type={this.state.type} className={"input"} value={passwordValue} onChange={this.handlePasswordInput}/>
+                <input type={this.state.type} className={"input"} value={passwordValue} onChange={this.handlePasswordInput} ref={(input) => {this.passwordValueRef = input}} onKeyPress={this.handlePasswordKeyPress}/>
                 <button className={"buttons"} onClick={this.handleAddUser}>Add New User</button>
             </div>
         )
