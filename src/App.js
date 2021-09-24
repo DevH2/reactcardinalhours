@@ -18,13 +18,18 @@ class App extends Component {
     this.state = {
       isOpen: false,
       createUserIsOpen: false,
-      searchText: ""
+      sOutisOpen:false,
+      searchText: "",
+      currentUser: null
+      
     }
     this.handleOnClose = this.handleOnClose.bind(this)
     this.handleOnOpen = this.handleOnOpen.bind(this)
     this.createUserHandleOnClose = this.createUserHandleOnClose.bind(this)
     this.createUserHandleOnOpen = this.createUserHandleOnOpen.bind(this)
     this.handleSearchText = this.handleSearchText.bind(this)
+    this.sOutHandleOpen = this.sOutHandleOpen.bind(this)
+    this.sOutHandleClose = this.sOutHandleClose.bind(this)
   }
   //Snackbar functions
   handleOnClose = () => {this.setState({isOpen: false})}
@@ -32,6 +37,10 @@ class App extends Component {
 
   createUserHandleOnClose = () => {this.setState({createUserIsOpen: false})}
   createUserHandleOnOpen = () => {this.setState({createUserIsOpen: true})}
+
+  sOutHandleOpen = () => this.setState({sOutOpen:false})
+  sOutHandleClose = () => this.setState({sOutClose: true})
+
 
   handleSearchText = text => {this.setState({searchText: text})}
 
@@ -58,7 +67,7 @@ class App extends Component {
             <div className={"center"}>      
               <div className="test">
                 <CreateNewUser createUserHandleOnOpen={this.createUserHandleOnOpen}/>
-                <SignInSignOut handleOpen={this.handleOnOpen}/>
+                <SignInSignOut handleOpen={this.handleOnOpen} sOutHandleOpen={this.sOutHandleOpen}/>
               </div>
             </div> 
 
@@ -80,16 +89,30 @@ class App extends Component {
               <SnackbarContent message={"No empty or duplicate fields."}/>
             </Snackbar>
 
-          </div>
+            <Snackbar
+              open={this.state.sOutisOpen} 
+              className={"empty-field-snackbar"} 
+              autoHideDuration={1000} 
+              onClose={this.sOutHandleClose}
+              TransitionComponent={SlideTransition}
+            >
+              <SnackbarContent message={`Signed in ${this.state.currentUser}`} />
+            </Snackbar>
+          </div> 
       </div>
       
       
       : 
       
       <div>
-        <h1> Team 4159 Login</h1>
         <img src={mobilebg} alt={"background"} className={"leftbg"}/>
-        <SignInSignOut handleOpen={this.handleOnOpen}/>
+        <div>
+          <h1 style={{color:"whitesmoke", position:"absolute", }}>Team 4159 Login</h1>
+          <div className={"sout-mobile"}>
+            <SignInSignOut handleOpen={this.handleOnOpen}/>
+          </div>
+        </div>
+
         <Snackbar 
               autoHideDuration={1000} 
               open={this.state.isOpen} 
@@ -97,7 +120,7 @@ class App extends Component {
               className={"empty-field-snackbar"}
               TransitionComponent={SlideTransition}
               >
-                <SnackbarContent message={"No empty or duplicate passwords."}/>
+              <SnackbarContent message={"No empty or duplicate passwords."}/>
         </Snackbar>
       </div>
     )
