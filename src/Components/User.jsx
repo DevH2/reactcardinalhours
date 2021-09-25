@@ -47,12 +47,23 @@ class User extends Component {
     }
     showTime(){
         const {timeIn} = this.props //Time in milliseconds
-        return new Date(timeIn).toISOString().substr(11,8)
+        if(!timeIn) return "00:00:00"
+        const hourValue = timeIn / 1000 / 60 / 60
+        const userHours = Math.floor(hourValue)
+        const minuteValue = (hourValue - userHours) * 60
+        const userMinutes = Math.floor(minuteValue)
+        const userSeconds = Math.floor((minuteValue - userMinutes) * 60)
+        return `${String(userHours).padStart(2, '0')}:${String(userMinutes).padStart(2, '0')}:${String(userSeconds).padStart(2, '0')}`
     }
     showTotalTime(){
         const {totalTime} = this.props
         if(!totalTime) return "00:00:00"
-        return new Date(totalTime).toISOString().substr(11,8)
+        const hourValue = totalTime / 1000 / 60 / 60
+        const userHours = Math.floor(hourValue)
+        const minuteValue = (hourValue - userHours) * 60
+        const userMinutes = Math.floor(minuteValue)
+        const userSeconds = Math.floor((minuteValue - userMinutes) * 60)
+        return `${String(userHours).padStart(2, '0')}:${String(userMinutes).padStart(2, '0')}:${String(userSeconds).padStart(2, '0')}`
     }
     
     

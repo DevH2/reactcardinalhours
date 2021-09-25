@@ -11,6 +11,7 @@ import SearchBar from './Components/SearchBar.jsx';
 import { Snackbar, SnackbarContent } from '@material-ui/core';
 import SlideTransition from './Components/Transitions/SlideTransition'
 import getMobile from './DetectMobile'
+import strftime from 'strftime'
 
 class App extends Component {
   constructor(){
