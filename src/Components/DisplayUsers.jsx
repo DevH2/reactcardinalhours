@@ -10,10 +10,10 @@ export class DisplayUsers extends Component {
         }
     }
     componentDidMount(){
-         setInterval(() => {
-             this.getUsers()       
-        }, 1000);
-        
+        //  setInterval(() => {
+        //      this.getUsers()       
+        // }, 1000);
+        this.getUsers()
     }
     componentDidUpdate(){
     }

@@ -43,7 +43,9 @@ class User extends Component {
         super(props)
         this.state = {
             //Putting ajax call props in state var will need the use of componentWillReceiveProps() so no
+            timeInSeconds: 0,
         }
+        this.showTimeSync = this.showTimeSync.bind(this)
     }
     showTime(){
         const {timeIn} = this.props //Time in milliseconds
@@ -55,6 +57,13 @@ class User extends Component {
         return new Date(totalTime).toISOString().substr(11,8)
     }
     
+    showTimeSync = () => this.setState({timeInSeconds: this.state.timeInSeconds+1})
+    formatTime = (time) => { return new Date(time*1000).toISOString.substr(11,8)}
+    componentDidMount(){
+        setInterval(() => {
+            this.showTimeSync()
+        },1000)
+    }
     
     render() {
         const {classes, isSignedIn, username, totalTime} = this.props
@@ -69,7 +78,7 @@ class User extends Component {
                         <Typography className={`${signInStyles}`}>SIGNED {signedInOutText}</Typography>
                     </CardContent>
                     <CardContent className={classes.timeContainer}>
-                        <Typography className={`${classes.text} ${classes.time} ${classes.topText}`}>Time In: {this.showTime()} </Typography>
+                        <Typography className={`${classes.text} ${classes.time} ${classes.topText}`}>Time In: {this.formatTime(this.state.timeInSeconds)} </Typography>
                         <Typography className={`${classes.text} ${classes.time}`}>
                             Total Time: {this.showTotalTime()} 
                         </Typography>
