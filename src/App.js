@@ -11,6 +11,10 @@ import SearchBar from './Components/SearchBar.jsx';
 import { Snackbar, SnackbarContent } from '@material-ui/core';
 import SlideTransition from './Components/Transitions/SlideTransition'
 import getMobile from './DetectMobile'
+import SignedInNotif from './Components/Notifications/SignedInNotif';
+import EmptyPassNotif from './Components/Notifications/EmptyPassNotif';
+import EmptyFieldNotif from './Components/Notifications/EmptyFieldNotif';
+import CreatedUserNotif from './Components/Notifications/CreatedUserNotif'
 
 class App extends Component {
   constructor(){
@@ -19,30 +23,49 @@ class App extends Component {
       isOpen: false,
       createUserIsOpen: false,
       sOutisOpen:false,
+      addUserIsOpen:false,
       searchText: "",
-      currentUser: null
-      
+      currentUser: null, //Last existing user
+      lastCreatedUser: null
     }
     this.handleOnClose = this.handleOnClose.bind(this)
     this.handleOnOpen = this.handleOnOpen.bind(this)
+
     this.createUserHandleOnClose = this.createUserHandleOnClose.bind(this)
     this.createUserHandleOnOpen = this.createUserHandleOnOpen.bind(this)
+
+    this.addUserHandleOpen = this.addUserHandleOpen.bind(this)
+    this.addUserHandleClose = this.addUserHandleClose.bind(this)
+
     this.handleSearchText = this.handleSearchText.bind(this)
+
     this.sOutHandleOpen = this.sOutHandleOpen.bind(this)
     this.sOutHandleClose = this.sOutHandleClose.bind(this)
+
+    this.setCurrentUser = this.setCurrentUser.bind(this)
+    this.setLastCreatedUser = this.setLastCreatedUser.bind(this)
   }
   //Snackbar functions
   handleOnClose = () => {this.setState({isOpen: false})}
   handleOnOpen = () => {this.setState({isOpen: true})}
 
-  createUserHandleOnClose = () => {this.setState({createUserIsOpen: false})}
+  createUserHandleOnClose = () => {this.setState({createUserIsOpen: false})} //For empty fields, will rename later
   createUserHandleOnOpen = () => {this.setState({createUserIsOpen: true})}
 
-  sOutHandleOpen = () => this.setState({sOutOpen:false})
-  sOutHandleClose = () => this.setState({sOutClose: true})
+  addUserHandleOpen = () => this.setState({addUserIsOpen: true})
+  addUserHandleClose = () => this.setState({addUserIsOpen: false})
+
+  sOutHandleOpen = () => this.setState({sOutisOpen:true})
+  sOutHandleClose = () => this.setState({sOutisOpen: false})
 
 
-  handleSearchText = text => {this.setState({searchText: text})}
+
+  handleSearchText = text => this.setState({searchText: text})
+
+  //the state key currentUser includes the user's sign in status.
+  setCurrentUser = username => this.setState({currentUser: username }, () => this.sOutHandleOpen())
+  setLastCreatedUser = username => this.setState({lastCreatedUser: username}, () => this.addUserHandleOpen())
+  
 
   componentDidMount(){
     console.log(getMobile())
@@ -66,37 +89,38 @@ class App extends Component {
             <h1> Team 4159 Login</h1>
             <div className={"center"}>      
               <div className="test">
-                <CreateNewUser createUserHandleOnOpen={this.createUserHandleOnOpen}/>
-                <SignInSignOut handleOpen={this.handleOnOpen} sOutHandleOpen={this.sOutHandleOpen}/>
+                <CreateNewUser createUserHandleOnOpen={this.createUserHandleOnOpen} setLastCreatedUser={this.setLastCreatedUser}/>
+                <SignInSignOut handleOpen={this.handleOnOpen} sOutHandleOpen={this.sOutHandleOpen} setCurrentUser={this.setCurrentUser}/>
               </div>
             </div> 
 
+            <EmptyPassNotif
+              isOpen={this.state.isOpen}
+              handleOnClose={this.handleOnClose}
+              slideTransition={SlideTransition}/> 
+            <EmptyFieldNotif
+              isOpen={this.state.createUserIsOpen}
+              createUserHandleOnClose={this.createUserHandleOnClose}
+              slideTransition={SlideTransition}/>
+            <SignedInNotif
+              isOpen={this.state.sOutisOpen}
+              sOutHandleClose={this.sOutHandleClose}
+              slideTransition={SlideTransition}
+              currentUser={this.state.currentUser}/>
+            <CreatedUserNotif
+              isOpen={this.state.addUserIsOpen}
+              addUserHandleClose={this.addUserHandleClose}
+              slideTransition={SlideTransition}
+              lastCreatedUser={this.state.lastCreatedUser}
+            />
             <Snackbar 
-              autoHideDuration={1000} 
-              open={this.state.isOpen} 
-              onClose={this.handleOnClose} 
+              open={this.state.addUserIsOpen}
+              onClose={this.addUserHandleClose}
+              TransitionComponent={SlideTransition}
+              autoHideDuration={1000}
               className={"empty-field-snackbar"}
-              TransitionComponent={SlideTransition}
               >
-                <SnackbarContent message={"No empty or duplicate passwords."}/>
-            </Snackbar>
-            <Snackbar 
-              open={this.state.createUserIsOpen} 
-              className={"empty-field-snackbar"} 
-              autoHideDuration={1000} 
-              onClose={this.createUserHandleOnClose}
-              TransitionComponent={SlideTransition}>
-              <SnackbarContent message={"No empty or duplicate fields."}/>
-            </Snackbar>
-
-            <Snackbar
-              open={this.state.sOutisOpen} 
-              className={"empty-field-snackbar"} 
-              autoHideDuration={1000} 
-              onClose={this.sOutHandleClose}
-              TransitionComponent={SlideTransition}
-            >
-              <SnackbarContent message={`Signed in ${this.state.currentUser}`} />
+              <SnackbarContent message={`Created new user: ${this.state.lastCreatedUser}`}/>
             </Snackbar>
           </div> 
       </div>

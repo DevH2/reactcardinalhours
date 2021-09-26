@@ -44,11 +44,14 @@ export class CreateNewUser extends Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({username: name, password:pass})
         })
-        .then(res => console.log(res))
+        .then(res => {
+            console.log(res)
+            console.log(`Added ${name}`)
+            this.props.setLastCreatedUser(name)
+        })
         .catch(err => {
             return console.log(err)
         })
-        console.log(`Added ${name}`)
     }
     render() {
         const {usernameValue, passwordValue} = this.state

@@ -37,6 +37,7 @@ class SignInSignOut extends Component {
                     body: JSON.stringify({password:userPassword})
                 })
                 console.log(`Signed out ${data.name}`)
+                this.props.setCurrentUser(`out ${data.name}`)
             } else {
                 fetch('https://hours.lren.cf/users/signin', {
                     method: 'POST',
@@ -46,6 +47,7 @@ class SignInSignOut extends Component {
                     body: JSON.stringify({password:userPassword})
                 })
                 console.log(`Signed in ${data.name}`)
+                this.props.setCurrentUser(`in ${data.name}`)
             }
         })
         this.clearInput()
@@ -54,6 +56,8 @@ class SignInSignOut extends Component {
     
     handleUserInput = event => this.setState({passwordValue: event.target.value})
     clearInput = () => this.setState({passwordValue:""})
+
+    
 
     
     componentDidMount(){

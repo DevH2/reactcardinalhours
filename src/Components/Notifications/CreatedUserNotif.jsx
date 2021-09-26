@@ -1,13 +1,16 @@
 import { Snackbar, SnackbarContent } from "@material-ui/core"
 
 const CreatedUserNotif = (props) => {
-    <Snackbar
-        open={props.createUserIsOpen} 
-        className={"empty-field-snackbar"} 
-        autoHideDuration={1000} 
-        onClose={props.createUserHandleOnClose}
-        TransitionComponent={props.slideTransition}>
-        <SnackbarContent message={`Created user ${props.username}`}/>
-    </Snackbar>
+    return(
+        <Snackbar 
+            open={props.isOpen}
+            onClose={props.addUserHandleClose}
+            TransitionComponent={props.slideTransition}
+            autoHideDuration={1000}
+            className={"empty-field-snackbar"}
+            >
+            <SnackbarContent message={`Created new user: ${props.lastCreatedUser}`}/>
+        </Snackbar>
+    )
 }
 export default CreatedUserNotif

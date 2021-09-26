@@ -2,7 +2,7 @@ import { Snackbar, SnackbarContent } from "@material-ui/core"
 const EmptyFieldNotif = (props) => {
     return (
         <Snackbar 
-              open={props.createUserIsOpen} 
+              open={props.isOpen} 
               className={"empty-field-snackbar"} 
               autoHideDuration={1000} 
               onClose={props.createUserHandleOnClose}
