@@ -1,4 +1,5 @@
 import { Snackbar, SnackbarContent } from "@material-ui/core"
+import SlideTransition from "../Transitions/SlideTransition"
 const EmptyFieldNotif = (props) => {
     return (
         <Snackbar 
@@ -6,7 +7,7 @@ const EmptyFieldNotif = (props) => {
               className={"empty-field-snackbar"} 
               autoHideDuration={1000} 
               onClose={props.createUserHandleOnClose}
-              TransitionComponent={props.slideTransition}>
+              TransitionComponent={SlideTransition}>
               <SnackbarContent message={"No empty or duplicate fields."}/>
         </Snackbar>
     )

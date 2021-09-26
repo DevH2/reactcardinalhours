@@ -96,32 +96,18 @@ class App extends Component {
 
             <EmptyPassNotif
               isOpen={this.state.isOpen}
-              handleOnClose={this.handleOnClose}
-              slideTransition={SlideTransition}/> 
+              handleOnClose={this.handleOnClose}/> 
             <EmptyFieldNotif
               isOpen={this.state.createUserIsOpen}
-              createUserHandleOnClose={this.createUserHandleOnClose}
-              slideTransition={SlideTransition}/>
+              createUserHandleOnClose={this.createUserHandleOnClose}/>
             <SignedInNotif
               isOpen={this.state.sOutisOpen}
               sOutHandleClose={this.sOutHandleClose}
-              slideTransition={SlideTransition}
               currentUser={this.state.currentUser}/>
             <CreatedUserNotif
               isOpen={this.state.addUserIsOpen}
               addUserHandleClose={this.addUserHandleClose}
-              slideTransition={SlideTransition}
-              lastCreatedUser={this.state.lastCreatedUser}
-            />
-            <Snackbar 
-              open={this.state.addUserIsOpen}
-              onClose={this.addUserHandleClose}
-              TransitionComponent={SlideTransition}
-              autoHideDuration={1000}
-              className={"empty-field-snackbar"}
-              >
-              <SnackbarContent message={`Created new user: ${this.state.lastCreatedUser}`}/>
-            </Snackbar>
+              lastCreatedUser={this.state.lastCreatedUser}/>
           </div> 
       </div>
       

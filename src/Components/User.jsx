@@ -42,9 +42,8 @@ class User extends Component {
         super(props)
         this.state = {
             //Putting ajax call props in state var will need the use of componentWillReceiveProps() so no
-            timeInSeconds: 0,
+            
         }
-        this.setTimeSync = this.setTimeSync.bind(this)
     }
     showTime(){
         const {timeIn} = this.props //Time in milliseconds
@@ -53,11 +52,10 @@ class User extends Component {
     showTotalTime(){
         const {totalTime} = this.props
         if(!totalTime) return "00:00:00"
-        return new Date(totalTime).toISOString().substr(11,8)
+        const formattedTime = new Date(totalTime).toISOString()
+        return `${(parseInt(formattedTime.substr(8,2))-1)*24+parseInt(formattedTime.substr(11,2))}:${formattedTime.substr(14,5)}`
     }
     
-    setTimeSync = () => this.setState({timeInSeconds: this.state.timeInSeconds+1})
-    formatTime = (time) => { return new Date(time*1000).toISOString.substr(11,8)}
     componentDidMount(){
         
     }

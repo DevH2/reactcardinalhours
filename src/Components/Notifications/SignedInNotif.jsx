@@ -1,4 +1,5 @@
 import { Snackbar, SnackbarContent } from "@material-ui/core"
+import SlideTransition from "../Transitions/SlideTransition"
 const SignedInNotif = (props) => {
     return (
         <Snackbar
@@ -6,7 +7,7 @@ const SignedInNotif = (props) => {
               className={"empty-field-snackbar"} 
               autoHideDuration={1000} 
               onClose={props.sOutHandleClose}
-              TransitionComponent={props.slideTransition}
+              TransitionComponent={SlideTransition}
             >
               <SnackbarContent message={`Signed ${props.currentUser}`} />
         </Snackbar>
