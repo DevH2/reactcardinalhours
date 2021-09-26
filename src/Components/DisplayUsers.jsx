@@ -15,13 +15,15 @@ export class DisplayUsers extends Component {
         }, 1000);
         //this.getUsers()
     }
-    componentDidUpdate(){
-    }
     async getUsers(){  
         try {
             const usersResponse = await fetch('https://hours.lren.cf/users/getusers')
             usersResponse.json().then(data => {
-            this.setState({users: data})
+            this.setState({
+                users: data.sort((user1, user2) => {return user2.timeIn-user1.timeIn}).sort(user => {
+                    return user.signedIn===1 ? -1:1
+                })
+            })
             return data;
         })                
         } catch {

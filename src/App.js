@@ -86,7 +86,7 @@ class App extends Component {
             <img src={settingIcon} alt={"settingsIcon"} className={"settingsIcon"}/>
             {/*<button className={"settingsIcon"}>S</button>*/}
 
-            <h1> Team 4159 Login</h1>
+            <h1>Team 4159 Login</h1>
             <div className={"center"}>      
               <div className="test">
                 <CreateNewUser createUserHandleOnOpen={this.createUserHandleOnOpen} setLastCreatedUser={this.setLastCreatedUser}/>

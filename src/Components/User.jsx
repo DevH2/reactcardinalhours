@@ -45,11 +45,11 @@ class User extends Component {
             
         }
     }
-    showTime(){
+    getTime(){
         const {timeIn} = this.props //Time in milliseconds
         return new Date(timeIn).toISOString().substr(11,8)
     }
-    showTotalTime(){
+    getTotalTime(){
         const {totalTime} = this.props
         if(!totalTime) return "00:00:00"
         const formattedTime = new Date(totalTime).toISOString()
@@ -73,9 +73,9 @@ class User extends Component {
                         <Typography className={`${signInStyles}`}>SIGNED {signedInOutText}</Typography>
                     </CardContent>
                     <CardContent className={classes.timeContainer}>
-                        <Typography className={`${classes.text} ${classes.time} ${classes.topText}`}>Time In: {this.showTime()} </Typography>
+                        <Typography className={`${classes.text} ${classes.time} ${classes.topText}`}>Time In: {this.getTime()} </Typography>
                         <Typography className={`${classes.text} ${classes.time}`}>
-                            Total Time: {this.showTotalTime()} 
+                            Total Time: {this.getTotalTime()} 
                         </Typography>
                     </CardContent>
                 </Card>

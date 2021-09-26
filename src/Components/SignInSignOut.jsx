@@ -26,13 +26,13 @@ class SignInSignOut extends Component {
             headers: {
                 'Content-Type': 'application/json',
             },
-        })      
+        }) 
         user.json().then(data => {
             if(data.signedIn === 1){
                 fetch('https://hours.lren.cf/users/signout', {
                     method: 'POST',
                     headers: {
-                       'Content-Type': 'application/json' 
+                    'Content-Type': 'application/json' 
                     },
                     body: JSON.stringify({password:userPassword})
                 })
@@ -42,14 +42,15 @@ class SignInSignOut extends Component {
                 fetch('https://hours.lren.cf/users/signin', {
                     method: 'POST',
                     headers: {
-                       'Content-Type': 'application/json' 
+                    'Content-Type': 'application/json' 
                     },
                     body: JSON.stringify({password:userPassword})
                 })
                 console.log(`Signed in ${data.name}`)
                 this.props.setCurrentUser(`in ${data.name}`)
             }
-        })
+        }).catch(err => console.log(err, "Invalid password"))
+    
         this.clearInput()
     }
 
