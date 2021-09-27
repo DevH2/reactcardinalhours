@@ -15,6 +15,7 @@ import SignedInNotif from './Components/Notifications/SignedInNotif';
 import EmptyPassNotif from './Components/Notifications/EmptyPassNotif';
 import EmptyFieldNotif from './Components/Notifications/EmptyFieldNotif';
 import CreatedUserNotif from './Components/Notifications/CreatedUserNotif'
+import User from './Components/User';
 
 class App extends Component {
   constructor(){
@@ -40,7 +41,7 @@ class App extends Component {
     this.handleSearchText = this.handleSearchText.bind(this)
 
     this.sOutHandleOpen = this.sOutHandleOpen.bind(this)
-    this.sOutHandleClose = this.sOutHandleClose.bind(this)
+    this.sOutHandleClose = this.sOutHandleClose.bind(this) //No need to bind these
 
     this.setCurrentUser = this.setCurrentUser.bind(this)
     this.setLastCreatedUser = this.setLastCreatedUser.bind(this)
@@ -121,17 +122,8 @@ class App extends Component {
           <div className={"sout-mobile"}>
             <SignInSignOut handleOpen={this.handleOnOpen}/>
           </div>
+          <User/>
         </div>
-
-        <Snackbar 
-              autoHideDuration={1000} 
-              open={this.state.isOpen} 
-              onClose={this.handleOnClose} 
-              className={"empty-field-snackbar"}
-              TransitionComponent={SlideTransition}
-              >
-              <SnackbarContent message={"No empty or duplicate passwords."}/>
-        </Snackbar>
       </div>
     )
   }
