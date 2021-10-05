@@ -73,7 +73,7 @@ class User extends Component {
                         <Typography className={`${signInStyles}`}>SIGNED {signedInOutText}</Typography>
                     </CardContent>
                     <CardContent className={classes.timeContainer}>
-                        <Typography className={`${classes.text} ${classes.time} ${classes.topText}`}>Time In: {this.getTime()} </Typography>
+                        <Typography className={`${classes.text} ${classes.time} ${classes.topText}`}>Time In: {this.getTime} </Typography>
                         <Typography className={`${classes.text} ${classes.time}`}>
                             Total Time: {this.getTotalTime()} 
                         </Typography>

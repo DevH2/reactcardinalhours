@@ -118,7 +118,7 @@ class App extends Component {
       <div>
         <img src={mobilebg} alt={"background"} className={"leftbg"}/>
         <div>
-          <h1 style={{color:"whitesmoke", position:"absolute", }}>Team 4159 Login</h1>
+          <h1 style={{color:"whitesmoke", position:"absolute" }}>Team 4159 Login</h1>
           <div className={"sout-mobile"}>
             <SignInSignOut handleOpen={this.handleOnOpen}/>
           </div>
