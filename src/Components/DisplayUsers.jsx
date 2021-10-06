@@ -33,7 +33,7 @@ export class DisplayUsers extends Component {
         return (
             <div className={"display-users"}>
                 <div>
-                    {filteredUsers.map(user=> <User key={user.name} username={user.name} isSignedIn={user.signedIn} timeIn={user.timeIn} totalTime={user.totalTime}/>)}              
+                    {filteredUsers.map(user=> {if(this.state.users.length !== 0) return <User key={user.name} username={user.name} isSignedIn={user.signedIn} timeIn={user.timeIn} totalTime={user.totalTime}/>})}              
                 </div>
             </div>
         )

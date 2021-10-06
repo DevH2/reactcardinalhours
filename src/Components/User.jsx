@@ -44,9 +44,12 @@ class User extends Component {
             //Putting ajax call props in state var will need the use of componentWillReceiveProps() so no
             
         }
+        this.getTime = this.getTime.bind(this)
+        this.getTotalTime = this.getTotalTime.bind(this)
     }
     getTime(){
         const {timeIn} = this.props //Time in milliseconds
+        if(!timeIn) return "00:00:00"
         return new Date(timeIn).toISOString().substr(11,8)
     }
     getTotalTime(){
@@ -73,7 +76,7 @@ class User extends Component {
                         <Typography className={`${signInStyles}`}>SIGNED {signedInOutText}</Typography>
                     </CardContent>
                     <CardContent className={classes.timeContainer}>
-                        <Typography className={`${classes.text} ${classes.time} ${classes.topText}`}>Time In: {this.getTime} </Typography>
+                        <Typography className={`${classes.text} ${classes.time} ${classes.topText}`}>Time In: {this.getTime()} </Typography>
                         <Typography className={`${classes.text} ${classes.time}`}>
                             Total Time: {this.getTotalTime()} 
                         </Typography>
