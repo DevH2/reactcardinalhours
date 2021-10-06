@@ -22,10 +22,11 @@ const styles = theme => ({
     },
     text: {
         color:'whitesmoke',
+        position:'relative'
     },
     time: {
-        position:'relative',
-        left:'100%',
+        position:'absolute',
+        left:'50%',
     },
     timeContainer: {
         display:'flex',
@@ -33,6 +34,9 @@ const styles = theme => ({
     }, 
     topText: {
         marginBottom:'1em'
+    },
+    bottomText: {
+        transform:'translate(0,2.5em)'
     }
 
 
@@ -44,8 +48,6 @@ class User extends Component {
             //Putting ajax call props in state var will need the use of componentWillReceiveProps() so no
             
         }
-        this.getTime = this.getTime.bind(this)
-        this.getTotalTime = this.getTotalTime.bind(this)
     }
     getTime(){
         const {timeIn} = this.props //Time in milliseconds
@@ -77,7 +79,7 @@ class User extends Component {
                     </CardContent>
                     <CardContent className={classes.timeContainer}>
                         <Typography className={`${classes.text} ${classes.time} ${classes.topText}`}>Time In: {this.getTime()} </Typography>
-                        <Typography className={`${classes.text} ${classes.time}`}>
+                        <Typography className={`${classes.text} ${classes.time} ${classes.bottomText}`}>
                             Total Time: {this.getTotalTime()} 
                         </Typography>
                     </CardContent>

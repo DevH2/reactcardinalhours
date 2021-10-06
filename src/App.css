@@ -167,6 +167,7 @@ h1{
   width:24em;
   border-color: transparent;
   border-radius: 0 16px 16px 0;
+  background-color: #f7f7f7;
 }
 .search-bar:focus {
   outline:none;
@@ -177,6 +178,7 @@ h1{
   position: relative;
   top:10%;
 }
+
 .empty-field-snackbar{
   padding-left: 50%;
   transform: translate(50%,0);
@@ -193,4 +195,9 @@ h1{
   display: flex;
   align-items: center;
   color:whitesmoke;
+}
+.user-card-mobile{
+  display: flex;
+  justify-content:center;
+  transform: translate(0,16em);
 }

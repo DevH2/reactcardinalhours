@@ -122,7 +122,9 @@ class App extends Component {
           <div className={"sout-mobile"}>
             <SignInSignOut handleOpen={this.handleOnOpen}/>
           </div>
-          <User/>
+          <div className={"user-card-mobile"}>
+            <User/>
+          </div>
         </div>
       </div>
     )

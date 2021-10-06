@@ -10,7 +10,7 @@ const SearchBar = (props) => {
                 className="search-bar" 
                 type="text" 
                 placeholder="Search for users"      
-                onChange={event => {handleSearchText(event.target.value)}}       
+                onChange={event => {handleSearchText(event.target.value)}}     
             />
         </div>
     )
