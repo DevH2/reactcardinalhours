@@ -120,11 +120,11 @@ class App extends Component {
         <div>
           <h1 style={{color:"whitesmoke", position:"absolute" }}>Team 4159 Login</h1>
           <div className={"sout-mobile"}>
-            <SignInSignOut handleOpen={this.handleOnOpen}/>
+            <SignInSignOut handleOpen={this.handleOnOpen} sOutHandleOpen={this.sOutHandleOpen} setCurrentUser={this.setCurrentUser}/>
           </div>
-          <div className={"user-card-mobile"}>
-            <User/>
-          </div>
+            <div className={"user-card-mobile"}>
+              
+            </div>
         </div>
       </div>
     )

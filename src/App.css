@@ -199,5 +199,5 @@ h1{
 .user-card-mobile{
   display: flex;
   justify-content:center;
-  transform: translate(0,16em);
+  transform: translate(0,6em);
 }

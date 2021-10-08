@@ -58,10 +58,8 @@ class SignInSignOut extends Component {
     handleUserInput = event => this.setState({passwordValue: event.target.value})
     clearInput = () => this.setState({passwordValue:""})
 
-    
-
-    
     componentDidMount(){
+        
     }
     handleUserKeypress = event => {
         if (event.key === 'Enter') {

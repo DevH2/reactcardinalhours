@@ -10,7 +10,8 @@ const styles = theme => ({
         backgroundColor: `#18191a`,
         background: `linear-gradient(-45deg, rgba(0,0,0,0.22), rgba(2,2,2,0.25));`,
         display:'flex',
-        flexDirection:'row'
+        flexDirection:'row',
+        minWidth:"70px"
     },
     signInText: {
         color: '#03ac13',
