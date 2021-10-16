@@ -2,7 +2,7 @@ import './App.css';
 import {Component} from 'react'
 import PasswordInput from './Components/PasswordInput'
 import DisplayUsers from './Components/DisplayUsers'
-import bg from './Images/redgearbg (2).png'
+import bg from './Images/redgearbg (2).jpg'
 import settingIcon from './Images/output-onlinepngtools (3).png'
 import mobilebg from './Images/redgearbgmobile.PNG'
 import SignInSignOut from './Components/SignInSignOut';
@@ -17,6 +17,7 @@ import EmptyFieldNotif from './Components/Notifications/EmptyFieldNotif';
 import CreatedUserNotif from './Components/Notifications/CreatedUserNotif'
 import User from './Components/User';
 import InvalidPasswordNotif from './Components/Notifications/InvalidPasswordNotif';
+import InvalidUsernameNotif from './Components/Notifications/InvalidUsernameNotif';
 
 class App extends Component {
   constructor(){
@@ -29,7 +30,8 @@ class App extends Component {
       invalidPassIsOpen: false,
       searchText: "",
       currentUser: null, //Last existing user
-      lastCreatedUser: null
+      lastCreatedUser: null,
+      invalidUsernameIsOpen:false
     }
     
     this.handleSearchText = this.handleSearchText.bind(this) 
@@ -50,16 +52,14 @@ class App extends Component {
   invalidPassHandleOpen = () => this.setState({invalidPassIsOpen: true})
   invalidPassHandleClose = () => this.setState({invalidPassIsOpen: false})
 
-  
-
-
   handleSearchText = text => this.setState({searchText: text})
 
   //the state key currentUser includes the user's sign in status.
   setCurrentUser = username => this.setState({currentUser: username }, () => this.sOutHandleOpen())
   setLastCreatedUser = username => this.setState({lastCreatedUser: username}, () => this.addUserHandleOpen())
   
-
+  invalidUserHandleOpen = () => this.setState({invalidUsernameIsOpen: true})
+  invalidUserHandleClose = () => this.setState({invalidUsernameIsOpen: false})
   componentDidMount(){
     console.log(getMobile())
   }
@@ -82,7 +82,11 @@ class App extends Component {
             <h1>Team 4159 Login</h1>
             <div className={"center"}>      
               <div className="test">
-                <CreateNewUser createUserHandleOnOpen={this.createUserHandleOnOpen} setLastCreatedUser={this.setLastCreatedUser}/>
+                <CreateNewUser 
+                  createUserHandleOnOpen={this.createUserHandleOnOpen} 
+                  setLastCreatedUser={this.setLastCreatedUser}
+                  handleInvalidUsernameOpen={this.invalidUserHandleOpen}
+                />
                 <SignInSignOut 
                   handleOpen={this.handleOnOpen} 
                   sOutHandleOpen={this.sOutHandleOpen} 
@@ -108,7 +112,10 @@ class App extends Component {
               lastCreatedUser={this.state.lastCreatedUser}/>
             <InvalidPasswordNotif
               isOpen={this.state.invalidPassIsOpen}
-              invalidPassHandleClose={this.invalidPassHandleClose}
+              invalidPassHandleClose={this.invalidPassHandleClose}/>
+            <InvalidUsernameNotif
+              isOpen={this.state.invalidUsernameIsOpen}
+              invalidUsernameHandleClose={this.invalidUserHandleClose}
             />
           </div> 
       </div>

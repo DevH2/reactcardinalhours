@@ -29,8 +29,11 @@ export class CreateNewUser extends Component {
             !usernameValue || !passwordValue
         ){
             this.clearInputs()
-            return this.props.createUserHandleOnOpen()
-        } 
+            return this.props.createUserHandleOnOpen() //fix later
+        } else if(usernameValue.split(" ").length < 2) {
+            this.clearInputs()
+            return this.props.handleInvalidUsernameOpen()
+        }
         this.addUser(usernameValue, passwordValue)
         this.clearInputs()
     }
