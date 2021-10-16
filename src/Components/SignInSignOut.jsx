@@ -49,7 +49,10 @@ class SignInSignOut extends Component {
                 console.log(`Signed in ${data.name}`)
                 this.props.setCurrentUser(`in ${data.name}`)
             }
-        }).catch(err => console.log(err, "Invalid password"))
+        }).catch(err => {
+            //console.log(err, "Invalid password")
+            this.props.invalidPassHandleOpen()
+        })
     
         this.clearInput()
     }

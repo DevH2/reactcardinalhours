@@ -16,6 +16,7 @@ import EmptyPassNotif from './Components/Notifications/EmptyPassNotif';
 import EmptyFieldNotif from './Components/Notifications/EmptyFieldNotif';
 import CreatedUserNotif from './Components/Notifications/CreatedUserNotif'
 import User from './Components/User';
+import InvalidPasswordNotif from './Components/Notifications/InvalidPasswordNotif';
 
 class App extends Component {
   constructor(){
@@ -25,26 +26,13 @@ class App extends Component {
       createUserIsOpen: false,
       sOutisOpen:false,
       addUserIsOpen:false,
+      invalidPassIsOpen: false,
       searchText: "",
       currentUser: null, //Last existing user
       lastCreatedUser: null
     }
-    this.handleOnClose = this.handleOnClose.bind(this)
-    this.handleOnOpen = this.handleOnOpen.bind(this)
-
-    this.createUserHandleOnClose = this.createUserHandleOnClose.bind(this)
-    this.createUserHandleOnOpen = this.createUserHandleOnOpen.bind(this)
-
-    this.addUserHandleOpen = this.addUserHandleOpen.bind(this)
-    this.addUserHandleClose = this.addUserHandleClose.bind(this)
-
-    this.handleSearchText = this.handleSearchText.bind(this)
-
-    this.sOutHandleOpen = this.sOutHandleOpen.bind(this)
-    this.sOutHandleClose = this.sOutHandleClose.bind(this) //No need to bind these
-
-    this.setCurrentUser = this.setCurrentUser.bind(this)
-    this.setLastCreatedUser = this.setLastCreatedUser.bind(this)
+    
+    this.handleSearchText = this.handleSearchText.bind(this) 
   }
   //Snackbar functions
   handleOnClose = () => {this.setState({isOpen: false})}
@@ -59,6 +47,10 @@ class App extends Component {
   sOutHandleOpen = () => this.setState({sOutisOpen:true})
   sOutHandleClose = () => this.setState({sOutisOpen: false})
 
+  invalidPassHandleOpen = () => this.setState({invalidPassIsOpen: true})
+  invalidPassHandleClose = () => this.setState({invalidPassIsOpen: false})
+
+  
 
 
   handleSearchText = text => this.setState({searchText: text})
@@ -91,7 +83,12 @@ class App extends Component {
             <div className={"center"}>      
               <div className="test">
                 <CreateNewUser createUserHandleOnOpen={this.createUserHandleOnOpen} setLastCreatedUser={this.setLastCreatedUser}/>
-                <SignInSignOut handleOpen={this.handleOnOpen} sOutHandleOpen={this.sOutHandleOpen} setCurrentUser={this.setCurrentUser}/>
+                <SignInSignOut 
+                  handleOpen={this.handleOnOpen} 
+                  sOutHandleOpen={this.sOutHandleOpen} 
+                  setCurrentUser={this.setCurrentUser}
+                  invalidPassHandleOpen={this.invalidPassHandleOpen}
+                  />
               </div>
             </div> 
 
@@ -109,6 +106,10 @@ class App extends Component {
               isOpen={this.state.addUserIsOpen}
               addUserHandleClose={this.addUserHandleClose}
               lastCreatedUser={this.state.lastCreatedUser}/>
+            <InvalidPasswordNotif
+              isOpen={this.state.invalidPassIsOpen}
+              invalidPassHandleClose={this.invalidPassHandleClose}
+            />
           </div> 
       </div>
       
