@@ -4,7 +4,7 @@ import PasswordInput from './Components/PasswordInput'
 import DisplayUsers from './Components/DisplayUsers'
 import bg from './Images/redgearbg (2).jpg'
 import settingIcon from './Images/output-onlinepngtools (3).png'
-import mobilebg from './Images/redgearbgmobile.PNG'
+import mobilebg from './Images/redgearbg (2).jpg'
 import SignInSignOut from './Components/SignInSignOut';
 import CreateNewUser from './Components/CreateNewUser';
 import SearchBar from './Components/SearchBar.jsx';
