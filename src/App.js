@@ -33,7 +33,7 @@ class App extends Component {
       lastCreatedUser: null,
       invalidUsernameIsOpen:false
     }
-    
+
     this.handleSearchText = this.handleSearchText.bind(this) 
   }
   //Snackbar functions
@@ -63,6 +63,8 @@ class App extends Component {
   componentDidMount(){
     console.log(getMobile())
   }
+
+  
   
   render(){
     return (

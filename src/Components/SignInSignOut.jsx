@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Snackbar, SnackbarContent, withStyles} from '@material-ui/core'
+
 const styles = theme => ({
     snackBar: {
         marginTop: '10%',
@@ -53,7 +54,6 @@ class SignInSignOut extends Component {
             //console.log(err, "Invalid password")
             this.props.invalidPassHandleOpen()
         })
-    
         this.clearInput()
     }
 
