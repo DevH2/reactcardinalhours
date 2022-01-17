@@ -86,7 +86,7 @@ function AddSession() {
 
     return (
         <div className={"add-session-container"}>
-            <div>Add Session:</div>
+            <div>Enter Password:</div>
             <input type={"password"} className={"input"} value={passwordValue} onChange={handleUserInput} onKeyPress={handleUserKeypress} />
             <div className={"time-text"}>Start Time: </div>
             <DateTimePicker
