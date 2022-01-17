@@ -58,6 +58,7 @@ const SettingsBox = (props:SettingsBoxProps):JSX.Element => {
  
     const handleChangeSettings = ():void => {
         if(dialogIsOpen) return props.handleSnackbarOpen("Please enter the admin password")
+        if(!adminPasswordText.trim() || !localStorage.getItem("adminPassword")) localStorage.set("adminPassword", localStorage.getItem("adminPassword"))
         localStorage.setItem("submitKey", currentKey)
         localStorage.setItem("adminPassword", adminPasswordText)
         props.handleSnackbarOpen("Settings have been changed")
