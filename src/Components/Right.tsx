@@ -45,7 +45,7 @@ const Right = ():JSX.Element => {
     const handleSnackbarClose = ():void => setSnackbarIsOpen(false)
     
 
-    useEffect(() => {
+    useEffect(():void => {
         if(!(parseInt(currentTab) === 2 || parseInt(currentTab) === 3 )) return
 
         

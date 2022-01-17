@@ -7,9 +7,9 @@ import UserCard from "./UserCard"
 type LeftProps = {}
 type User = { 
     name: string; 
-    signedIn: boolean; 
-    timeIn: string; 
-    totalTime: string;
+    signedIn: number; 
+    timeIn: number; 
+    totalTime: number;
 }
 
 const styles = {
@@ -35,12 +35,11 @@ const Left = (props:LeftProps):JSX.Element => {
     const [date, setDate] = useState<string>();
     const [users, setUsers] = useContext(UsersContext)
     const [searchBarInput, setSearchBarInput] = useState<string>("")
-    useEffect(() => {
+
+    useEffect(():void => {
         setDate(getDate())
-        
     }, [])
-    
-    
+
     return (
         <Box sx={styles.left}>
             <Typography sx={styles.title}>Users {date}</Typography>

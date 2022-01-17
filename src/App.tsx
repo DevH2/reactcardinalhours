@@ -19,10 +19,16 @@ type AppProps = {
       <DesktopComponent/>
     )
   }
-  componentDidMount(){
+  componentDidMount():void{
     //Reloading since the timers drastically slow when the tab is inactive; 
     //I am too lazy to do any date subtraction to correct the times.
     document.addEventListener('visibilitychange', () => {
+      if(document.visibilityState === "visible") window.location.reload()
+    })
+  }
+  
+  componentWillUnmount():void{
+    document.removeEventListener('visibilitychange', () => {
       if(document.visibilityState === "visible") window.location.reload()
     })
   }

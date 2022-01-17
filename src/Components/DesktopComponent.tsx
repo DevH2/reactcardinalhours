@@ -21,18 +21,20 @@ class DesktopComponent extends Component<DesktopComponentProps, DesktopComponent
     constructor(props:DesktopComponentProps){
         super(props)
         this.state = {
-            users:[{name:"Bro bro", signedIn:true, timeIn:"0", totalTime:"0"},
-            {name:"Devin That Guy", signedIn:false, timeIn:"0", totalTime:"0"},
-            {name:"Devin That Guy", signedIn:false, timeIn:"0", totalTime:"0"},
-            {name:"Devin That Guy", signedIn:false, timeIn:"0", totalTime:"0"},
-            {name:"Devin That Guy", signedIn:false, timeIn:"0", totalTime:"0"},]
+            users:[]
         }
     }
 
     setUsers = (users:any[]):void => this.setState({users:users})
 
+    
+
     componentDidMount():void {
          DataAccess.getInstance().getAll().then(usersPromise => this.setUsers(usersPromise))
+    }
+
+    componentDidUpdate(_:DesktopComponentProps, prevState: DesktopComponentState){
+        console.log("Component updated", prevState)
     }
 
     render(){
