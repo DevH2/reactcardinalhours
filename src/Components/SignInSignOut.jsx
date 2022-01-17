@@ -21,7 +21,7 @@ class SignInSignOut extends Component {
         )
             return this.props.handleOpen()
         
-        const user = await fetch(`https://hours.lren.cf/users/getuserdata?password=${userPassword}`, {
+        const user = await fetch(`https://hours.team4159.org/users/getuserdata?password=${userPassword}`, {
             method:'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ class SignInSignOut extends Component {
         }) 
         user.json().then(data => {
             if(data.signedIn === 1){
-                fetch('https://hours.lren.cf/users/signout', {
+                fetch('https://hours.team4159.org/users/signout', {
                     method: 'POST',
                     headers: {
                     'Content-Type': 'application/json' 
@@ -39,7 +39,7 @@ class SignInSignOut extends Component {
                 console.log(`Signed out ${data.name}`)
                 this.props.setCurrentUser(`out ${data.name}`)
             } else {
-                fetch('https://hours.lren.cf/users/signin', {
+                fetch('https://hours.team4159.org/users/signin', {
                     method: 'POST',
                     headers: {
                     'Content-Type': 'application/json' 

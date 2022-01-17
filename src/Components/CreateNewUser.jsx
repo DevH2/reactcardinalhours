@@ -44,7 +44,7 @@ export class CreateNewUser extends Component {
     
     
     async addUser(name, pass){
-        const resObj = await fetch('https://hours.lren.cf/users/adduser', {
+        const resObj = await fetch('https://hours.team4159.org/users/adduser', {
             method:'POST', 
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({username: name, password:pass})

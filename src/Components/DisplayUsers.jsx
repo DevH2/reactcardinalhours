@@ -17,7 +17,7 @@ export class DisplayUsers extends Component {
     }
     async getUsers(){  
         try {
-            const usersResponse = await fetch('https://hours.lren.cf/users/getusers')
+            const usersResponse = await fetch('https://hours.team4159.org/users/getusers')
             usersResponse.json().then(data => {
                 this.setState({users: data})
                 return data;
