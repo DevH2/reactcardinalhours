@@ -51,6 +51,7 @@ const RegisterBox = (props:RegisterBoxProps):JSX.Element => {
     }
 
     const handleRegisterUser = (firstName:string, lastName:string, password:string):void => {
+        if(dialogIsOpen) return props.handleSnackbarOpen("Please enter the admin password")
         if(!firstName.trim() || !lastName.trim() || !password.trim()) props.handleSnackbarOpen("No empty fields")
         DataAccess.getInstance().save(firstName, lastName, password, props.handleSnackbarOpen)
         .then(_ => DataAccess.getInstance().getAll().then(users => setUsers(users)))

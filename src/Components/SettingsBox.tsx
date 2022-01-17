@@ -66,7 +66,15 @@ const SettingsBox = (props:SettingsBoxProps):JSX.Element => {
     return (
         <Paper sx={styles.container}>
             <Typography sx={styles.enterSettingsText}>Configure Controls</Typography>
-            <CustomTextField label="Press a Key" value={currentKey} onKeyDown={(e:React.KeyboardEvent<HTMLDivElement>) => handleKeyDown(e)} onBlur={(e:FocusEvent<HTMLInputElement>) => handleOnBlur(e)} onFocus={(e:FocusEvent<HTMLInputElement>) => handleOnFocus(e)} sx={styles.textField} InputProps={{readOnly:true}}/>
+            <CustomTextField 
+                label="Press a Key" 
+                value={currentKey} 
+                onKeyDown={(e:React.KeyboardEvent<HTMLDivElement>) => handleKeyDown(e)} 
+                onBlur={(e:FocusEvent<HTMLInputElement>) => handleOnBlur(e)} 
+                onFocus={(e:FocusEvent<HTMLInputElement>) => handleOnFocus(e)} 
+                sx={styles.textField} 
+                InputProps={{readOnly:true}}
+            />
             <CustomTextField 
                 onChange={(event:ChangeEvent<HTMLInputElement>) => setAdminPasswordText(event.currentTarget.value)} 
                 sx={styles.textField} type={isShowAdminPass ? "password":"text"} 
