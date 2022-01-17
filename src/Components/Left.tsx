@@ -43,10 +43,14 @@ const Left = (props:LeftProps):JSX.Element => {
     return (
         <Box sx={styles.left}>
             <Typography sx={styles.title}>Users {date}</Typography>
-            <Searchbar/>
+            <Searchbar searchBarInput={searchBarInput} setSearchBarInput={setSearchBarInput}/>
             <div>
                 {/*signedIn 0 means signed out, and 1 means signed in; u also stands for user */}
-                {users.map((u:User) => <UserCard name={u.name} signedIn={u.signedIn} timeIn={u.timeIn} totalTime={u.totalTime}/>)}
+                {users
+                .filter((userA:User)=> userA.name.toLowerCase().includes(searchBarInput.toLowerCase()))
+                .sort((user1:User, user2:User) => {return user2.timeIn-user1.timeIn})
+                .sort((user:User) => {return user.signedIn===1 ? -1:1})
+                .map((u:User) => <UserCard name={u.name} signedIn={u.signedIn} timeIn={u.timeIn} totalTime={u.totalTime}/>)}
             </div>
         </Box>
     )

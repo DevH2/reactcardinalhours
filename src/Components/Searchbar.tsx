@@ -1,4 +1,5 @@
 //import SearchIcon from '@mui/icons-material/Search';
+import { type } from 'os';
 import { ChangeEvent, CSSProperties, useState } from 'react';
 
 const styles = {
@@ -23,12 +24,15 @@ const styles = {
         fontSize:"18px"
     },
 }
-const Searchbar = () => {
-    const [text, setText] = useState<string>("")
+type SearchBarProps = {
+    searchBarInput:string;
+    setSearchBarInput:(value:string) => void
+}
+const Searchbar = (props:SearchBarProps) => {
     return (
         <div style={styles.container}>
             {/*<div style={styles.searchIcon}><SearchIcon/></div>*/}
-            <input placeholder=" Search user" onChange={(event:ChangeEvent<HTMLInputElement>) => setText(event.target.value)} style={styles.input}/>
+            <input value={props.searchBarInput} placeholder=" Search user" onChange={(event:ChangeEvent<HTMLInputElement>) => props.setSearchBarInput(event.target.value)} style={styles.input}/>
         </div>
     )
 }
