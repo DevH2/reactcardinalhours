@@ -1,7 +1,8 @@
 import { Button, Checkbox, FormControlLabel, FormGroup, Paper, TextField, Typography } from '@mui/material'
-import React, { ChangeEvent, FocusEvent, useState } from 'react'
+import React, { ChangeEvent, FocusEvent, useContext, useEffect, useState } from 'react'
 import AdminDialog from './Notifications/AdminDialog'
 import CustomTextField from './CustomTextField'
+import { AdminDialogContext } from './Right'
 
 const styles = {
     container: {
@@ -35,31 +36,49 @@ const styles = {
         marginBottom:"1em"
     },
 }
-const SettingsBox = ():JSX.Element => {
+type SettingsBoxProps = {
+    handleSnackbarOpen: (msg:string) => void;
+}
+const SettingsBox = (props:SettingsBoxProps):JSX.Element => {
     const [isShowAdminPass, setIsShowAdminPass] = useState<boolean>(true)
     const [isFocused, setIsFocused] = useState<boolean>(false)
     const [currentKey, setCurrentKey] = useState<string>("Enter")
+    const [dialogIsOpen, setDialogIsOpen] = useContext(AdminDialogContext)
+    const [adminPasswordText, setAdminPasswordText] = useState<string>("berd")
 
     const checkBox:JSX.Element = <Checkbox style={{color:"#ff073a"}} onChange={(event:ChangeEvent<HTMLInputElement>, checked:boolean):void => (setIsShowAdminPass(checked))}/>
     const handleOnFocus = (event:FocusEvent<HTMLInputElement>):void => setIsFocused(true)
     const handleKeyDown = (event:React.KeyboardEvent<HTMLDivElement>) => {if(isFocused) setCurrentKey(event.key)}
     const handleOnBlur = (event:FocusEvent<HTMLInputElement>):void => setIsFocused(false)
     
-    
-
+    const closeDialog = (password:string):void => {
+        if(password !== localStorage.getItem("adminPassword")) return props.handleSnackbarOpen("Invalid password")
+        setDialogIsOpen(false)
+    }
+ 
+    const handleChangeSettings = ():void => {
+        if(dialogIsOpen) return props.handleSnackbarOpen("Please enter the admin password")
+        localStorage.setItem("submitKey", currentKey)
+        localStorage.setItem("adminPassword", adminPasswordText)
+        props.handleSnackbarOpen("Settings have been changed")
+    }
 
     return (
         <Paper sx={styles.container}>
             <Typography sx={styles.enterSettingsText}>Configure Controls</Typography>
             <CustomTextField label="Press a Key" value={currentKey} onKeyDown={(e:React.KeyboardEvent<HTMLDivElement>) => handleKeyDown(e)} onBlur={(e:FocusEvent<HTMLInputElement>) => handleOnBlur(e)} onFocus={(e:FocusEvent<HTMLInputElement>) => handleOnFocus(e)} sx={styles.textField} InputProps={{readOnly:true}}/>
-            <CustomTextField sx={styles.textField} type={isShowAdminPass ? "password":"text"} label="Change Admin Password"/>
+            <CustomTextField 
+                onChange={(event:ChangeEvent<HTMLInputElement>) => setAdminPasswordText(event.currentTarget.value)} 
+                sx={styles.textField} type={isShowAdminPass ? "password":"text"} 
+                label="Change Admin Password"
+            />
             <FormGroup sx={styles.checkBox}>
                 <FormControlLabel label="Show Password" control={checkBox}/>
             </FormGroup>
-            <Button sx={styles.button} variant="contained" size="large">
+            <Button onClick={handleChangeSettings} sx={styles.button} variant="contained" size="large">
                 <Typography>Submit</Typography>
             </Button>
-            <AdminDialog isOpen={true}/>
+            <AdminDialog closeDialog={closeDialog} isOpen={dialogIsOpen}/>
         </Paper>
     )
 }

@@ -1,8 +1,11 @@
 import { LoadingButton } from '@mui/lab'
 import { Paper, TextField, Typography } from '@mui/material'
-import React from 'react'
+import React, { ChangeEvent, useContext, useState } from 'react'
+import DataAccess from '../DataAccess'
 import CustomTextField from './CustomTextField'
+import { UsersContext } from './DesktopComponent'
 import AdminDialog from './Notifications/AdminDialog'
+import { AdminDialogContext } from './Right'
 
 const styles = {
     container: {
@@ -32,17 +35,48 @@ const styles = {
         },
      },
 }
-const RegisterBox = ():JSX.Element => {
+type RegisterBoxProps = {
+    handleSnackbarOpen: (msg:string) => void;
+}
+const RegisterBox = (props:RegisterBoxProps):JSX.Element => {
+    const [firstName, setFirstName] = useState<string>("")
+    const [lastName, setLastName] = useState<string>("")
+    const [password, setPassword] = useState<string>("")
+    const [dialogIsOpen, setDialogIsOpen] = useContext(AdminDialogContext)
+    const [user, setUsers] = useContext(UsersContext)
+    
+    const closeDialog = (password:string):void => {
+        if(password !== localStorage.getItem("adminPassword")) return props.handleSnackbarOpen("Invalid Password")
+        setDialogIsOpen(false)
+    }
+
+    const handleRegisterUser = (firstName:string, lastName:string, password:string):void => {
+        if(!firstName.trim() || !lastName.trim() || !password.trim()) props.handleSnackbarOpen("No empty fields")
+        DataAccess.getInstance().save(firstName, lastName, password, props.handleSnackbarOpen)
+        .then(_ => DataAccess.getInstance().getAll().then(users => setUsers(users)))
+    }
+
     return (
         <Paper sx={styles.container}>
             <Typography sx={styles.enterFieldsText}>Enter User Info</Typography>
-            <CustomTextField label="First Name" sx={styles.textField}/>
-            <CustomTextField label="Last Name" sx={styles.textField}/>
-            <CustomTextField label="Password" sx={styles.textField}/>
-            <LoadingButton size="large" variant="contained" sx={styles.button}>
+            <CustomTextField 
+                onChange={(event:ChangeEvent<HTMLInputElement>) => setFirstName(event.currentTarget.value) } 
+                label="First Name" 
+                sx={styles.textField}
+            />
+            <CustomTextField 
+                onChange={(event:ChangeEvent<HTMLInputElement>) => setLastName(event.currentTarget.value) } 
+                label="Last Name" 
+                sx={styles.textField}
+            />
+            <CustomTextField 
+                onChange={(event:ChangeEvent<HTMLInputElement>) => setPassword(event.currentTarget.value) } 
+                label="Password" 
+                sx={styles.textField}/>
+            <LoadingButton onClick={() => handleRegisterUser(firstName, lastName, password)} size="large" variant="contained" sx={styles.button}>
                 <Typography>Submit</Typography>
             </LoadingButton>
-            <AdminDialog isOpen={true}/>
+            <AdminDialog isOpen={dialogIsOpen} closeDialog={closeDialog}/>
         </Paper>
     )
 }

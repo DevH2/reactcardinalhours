@@ -61,13 +61,11 @@ const SignInBox = (props:SignInBoxProps):JSX.Element => {
             .then(users => setUsers(users)))
             //props.handleSnackbarOpen(`Signed in as ${user.name}`)
         } else if(user.signedIn === 1) {
-            //Total time does not update
             DataAccess.getInstance().signOut(password, user.name, props.handleSnackbarOpen)
             .then(_ => DataAccess.getInstance().getAll()
             .then(users => setUsers(users)))
             //props.handleSnackbarOpen(`Signed out as ${user.name}`)
         } 
-        //DataAccess.getInstance().getAll().then(users => setUsers(users))
         setPasswordText("")
     }
     
@@ -80,7 +78,7 @@ const SignInBox = (props:SignInBoxProps):JSX.Element => {
                 onChange={(e:ChangeEvent<HTMLInputElement>) => setPasswordText(e.currentTarget.value)}
                 value={passwordText}
                 onKeyDown={(e:React.KeyboardEvent<HTMLDivElement>) => {
-                    if(e.key === "Enter") handleSignIn(passwordText)
+                    if(e.key === localStorage.getItem("submitKey")) handleSignIn(passwordText)
                 }}
             />
             <FormGroup sx={styles.checkBox}>

@@ -30,7 +30,7 @@ class DataAccess {
         try {
             const res = await fetch(`https://hours.team4159.org/users/getuserdata?password=${password}`)
             const userData = await res.json();
-            if(res.ok)return userData;
+            if(res.ok) return userData;
             else console.log("Could not retrieve user data")
         } catch(e:unknown) {
             openSnackbar("Invalid password")
@@ -39,7 +39,7 @@ class DataAccess {
         }
     }
 
-    public async save(firstName:string, lastName:string, password:string):Promise<void>{
+    public async save(firstName:string, lastName:string, password:string, openSnackbar: (msg:string) => void = () =>{}):Promise<number | void>{
         type User = {
             firstName:string;
             lastName:string;
@@ -61,7 +61,14 @@ class DataAccess {
                     body: JSON.stringify(user)
                 }
             )
+            if(res.ok){
+                openSnackbar(`Created new user ${firstName} ${lastName}`)
+                return res.status
+            } else {
+                openSnackbar(`Unable to register ${firstName} ${lastName}`)
+            }
         } catch(e:unknown) {
+            openSnackbar(`Unable to register ${firstName} ${lastName}`)
             console.log(e)
         }
 

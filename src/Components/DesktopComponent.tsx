@@ -33,7 +33,7 @@ class DesktopComponent extends Component<DesktopComponentProps, DesktopComponent
          DataAccess.getInstance().getAll().then(usersPromise => this.setUsers(usersPromise))
     }
 
-    componentDidUpdate(_:DesktopComponentProps, prevState: DesktopComponentState){
+    componentDidUpdate(_:DesktopComponentProps, prevState: DesktopComponentState): void{
         
     }
 

@@ -1,6 +1,6 @@
 import { Button, Snackbar, Tab, TabsContext, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system"
-import { ChangeEvent, SetStateAction, useEffect, useState } from "react";
+import { ChangeEvent, Context, createContext, SetStateAction, useEffect, useState } from "react";
 import SignInBox from "./SignInBox";
 import {TabContext, TabList, TabPanel} from "@mui/lab";
 import RegisterBox from "./RegisterBox";
@@ -33,10 +33,15 @@ const styles = {
        transform:"translate(-7.5%,200%)" 
     }
 }
+
+//This context is in the parent to prevent tabs 2 and 3's content from functioning as long as the dialog is open.
+export const AdminDialogContext:Context<any[]> = createContext<any[]>([])
+
 const Right = ():JSX.Element => {
     const [currentTab, setCurrentTab] = useState<string>("1")
     const [snackbarMsg, setSnackbarMsg] = useState<string>("Placeholder message")
-    const [snackBarIsOpen, setSnackbarIsOpen] = useState<boolean>(true)
+    const [snackBarIsOpen, setSnackbarIsOpen] = useState<boolean>(false)
+    const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(true)
 
     const handleSnackbarOpen = (msg:string = "Unset message"):void => {
         setSnackbarMsg(msg)
@@ -47,7 +52,7 @@ const Right = ():JSX.Element => {
 
     useEffect(():void => {
         if(!(parseInt(currentTab) === 2 || parseInt(currentTab) === 3 )) return
-
+        setDialogIsOpen(true)
         
     }, [currentTab])
     return (
@@ -63,12 +68,14 @@ const Right = ():JSX.Element => {
                 <TabPanel value="1">
                     <SignInBox handleSnackbarOpen={handleSnackbarOpen}/>
                 </TabPanel>
-                <TabPanel value="2">
-                    <RegisterBox/>
-                </TabPanel>
-                <TabPanel value="3">
-                    <SettingsBox/>
-                </TabPanel>
+                <AdminDialogContext.Provider value={[dialogIsOpen, setDialogIsOpen]}>
+                    <TabPanel value="2">
+                        <RegisterBox handleSnackbarOpen={handleSnackbarOpen}/>
+                    </TabPanel>
+                    <TabPanel value="3">
+                        <SettingsBox handleSnackbarOpen={handleSnackbarOpen}/>
+                    </TabPanel>
+                </AdminDialogContext.Provider>
             </TabContext>
             <Snackbar 
                 sx={styles.snackBar}  
