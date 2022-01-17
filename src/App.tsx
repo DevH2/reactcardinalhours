@@ -1,26 +1,29 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { Component } from 'react';
+import DesktopComponent from './Components/DesktopComponent';
+import DataAccess from './DataAccess';
+type AppProps = {
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+}
+ class App extends Component {
+  constructor(props:AppProps){
+    super(props)
+    this.state = {
+
+    }
+  }
+  render(){
+   return (
+     <DesktopComponent/>
+   )
+  }
+  componentDidMount(){
+    DataAccess.getInstance().getAll()
+    DataAccess.getInstance().get("bob")
+  }
+
 }
 
 export default App;
