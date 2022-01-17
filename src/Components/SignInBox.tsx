@@ -1,7 +1,9 @@
 import { LoadingButton } from '@mui/lab'
 import { Button, Checkbox, FormControlLabel, FormGroup, Paper, Snackbar, styled, TextField, Typography } from '@mui/material'
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useContext, useState } from 'react'
+import DataAccess from '../DataAccess'
 import CustomTextField from './CustomTextField'
+import { UsersContext } from './DesktopComponent'
 
 const styles = {
     container: {
@@ -33,19 +35,37 @@ const styles = {
     },
 
 }
-
+//User type is different depending on whether getuserdata or getusers is called
+type User = {
+    name: string;
+    signedIn: number;
+    totalTime: number;
+    meetings: number;
+}
 type SignInBoxProps = {
     handleSnackbarOpen: (msg:string) => void;
 }
 const SignInBox = (props:SignInBoxProps):JSX.Element => {
     const [isShowPassword, setIsShowPassword] = useState<boolean>(true)
     const [passwordText, setPasswordText] = useState<string>("")
+    const [users, setUsers] = useContext(UsersContext)
 
     const checkBox:JSX.Element = <Checkbox style={{color:"#ff073a"}} onChange={(event:ChangeEvent<HTMLInputElement>, checked:boolean):void => (setIsShowPassword(checked))}/>
 
-    const handleSignIn = (password:string):void => {
+    const handleSignIn = async (password:string):Promise<void> => {
         if(!passwordText.trim()) return props.handleSnackbarOpen("Please enter a non-empty password")
-        props.handleSnackbarOpen("s")
+        const user:User = await DataAccess.getInstance().get(password)
+        if(user.signedIn === 0){
+            DataAccess.getInstance().signIn(password).then(_ => DataAccess.getInstance().getAll().then(users => setUsers(users)))
+            props.handleSnackbarOpen(`Signed in as ${user.name}`)
+        } else {
+            //Total time does not update
+            DataAccess.getInstance().signOut(password).then(_ => DataAccess.getInstance().getAll().then(users => setUsers(users)))
+            props.handleSnackbarOpen(`Signed out as ${user.name}`)
+        }
+        console.log(user)
+        //DataAccess.getInstance().getAll().then(users => setUsers(users))
+        setPasswordText("")
     }
     
     return (
@@ -55,15 +75,16 @@ const SignInBox = (props:SignInBoxProps):JSX.Element => {
                 label="Password" 
                 type={isShowPassword ? "password":"text"} 
                 onChange={(e:ChangeEvent<HTMLInputElement>) => setPasswordText(e.currentTarget.value)}
+                value={passwordText}
                 onKeyDown={(e:React.KeyboardEvent<HTMLDivElement>) => {
-                    if(e.key === "Enter") handleSignIn("")
+                    if(e.key === "Enter") handleSignIn(passwordText)
                 }}
             />
             <FormGroup sx={styles.checkBox}>
                 <FormControlLabel label="Show Password" control={checkBox}/>
             </FormGroup>
             {/*Need to use arrow func this time b/c of the enter key?*/}
-            <LoadingButton onClick={() => handleSignIn("")} size="large" sx={styles.button} variant="contained">
+            <LoadingButton onClick={() => handleSignIn(passwordText)} size="large" sx={styles.button} variant="contained">
                 <Typography>Sign In</Typography>
             </LoadingButton>
         </Paper>

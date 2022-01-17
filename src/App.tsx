@@ -15,13 +15,16 @@ type AppProps = {
     }
   }
   render(){
-   return (
-     <DesktopComponent/>
-   )
+    return (
+      <DesktopComponent/>
+    )
   }
   componentDidMount(){
-    DataAccess.getInstance().getAll()
-    DataAccess.getInstance().get("bob")
+    //Reloading since the timers drastically slow when the tab is inactive; 
+    //I am too lazy to do any date subtraction to correct the times.
+    document.addEventListener('visibilitychange', () => {
+      if(document.visibilityState === "visible") window.location.reload()
+    })
   }
 
 }

@@ -39,8 +39,7 @@ const UserCard = (props:UserCardProps):JSX.Element => {
     const {name, timeIn, totalTime, signedIn} = props
     
     useEffect(() => {
-        setDisplayedTime(parseInt(timeIn));
-        console.log(formatTime( 434875.59,0))
+        //console.log(displayedTime)
     }, [])
 
     //It might be better to do this in the parent node with foreach, but I am lazy
@@ -53,16 +52,14 @@ const UserCard = (props:UserCardProps):JSX.Element => {
     }, [displayedTime, signedIn])
 
 
-    const formatTime = (...times:number[]):string => {
-        if(!times) return "00:00:00"
-        const timeInSeconds:number = Math.trunc(times[0] + (times[1] / 1000))
-        const secondsLeft:number = timeInSeconds % 3600 % 60;
-        const mins:number = Math.floor(timeInSeconds % 3600 / 60)
-        const hrs:number = Math.floor(timeInSeconds / 3600)
-        const HH:string = (hrs < 10 ? "0" : "") + hrs
-        const MM:string = (mins < 10 ? "0" : "") + mins
-        const SS:string = (secondsLeft < 10 ? "0" : "") + secondsLeft
-        return `${HH}:${MM}:${SS}`
+    const formatTime = (timeInSec:number):string => {
+        let secondsLeft = timeInSec % 3600 % 60;
+        let mins = (Math.floor(timeInSec % 3600/60));
+        let hrs = Math.floor(timeInSec/3600);
+        let HH = (hrs < 10 ? "0" : "") + hrs;
+        let MM = (mins <10 ? "0":"") + mins;
+        let SS = (secondsLeft < 10 ? "0":"") + Math.floor(secondsLeft);
+        return HH+":"+MM+":"+SS;
     }
 
     return (
@@ -70,8 +67,8 @@ const UserCard = (props:UserCardProps):JSX.Element => {
             <Typography sx={styles.name}>{name}</Typography>
             <Typography sx={styles.signedInText} color={signedIn ? "lime":"#ff073a"}>{signedIn ? "SIGNED IN": "SIGNED OUT"}</Typography>
             <Box sx={styles.timeContainer}>
-                <Typography sx={styles.timeText}>Time In: {formatTime(displayedTime, parseInt(timeIn))} </Typography>
-                <Typography sx={styles.timeText}>Total Time: {formatTime(0, parseInt(totalTime))}</Typography>
+                <Typography sx={styles.timeText}>Time In: {formatTime(parseInt(timeIn)/1000 + displayedTime)} </Typography>
+                <Typography sx={styles.timeText}>Total Time: {formatTime(parseInt(totalTime)/1000)}</Typography>
             </Box>
         </Box>
     )

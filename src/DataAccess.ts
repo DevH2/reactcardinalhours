@@ -15,7 +15,8 @@ class DataAccess {
         try {
             const res = await fetch("https://hours.team4159.org/users/getusers")
             const users = await res.json();
-            return users as any[];
+            if(res.ok) return users as any[];
+            else return []
         } catch {
             console.log("Could not get users")
             return []
@@ -26,11 +27,12 @@ class DataAccess {
         try {
             const res = await fetch(`https://hours.team4159.org/users/getuserdata?password=${password}`)
             const userData = await res.json();
-            console.log(userData)
-            return userData;
+            if(res.ok) return userData;
+            else console.log("Could not retrieve user data")
+            
         } catch(e:unknown) {
             console.log(e)
-            return console.log("Could not get users")
+            return console.log("Could not get user data")
         }
     }
 
@@ -64,6 +66,44 @@ class DataAccess {
 
     public delete(password:string):void{
 
+    }
+
+    public async signIn(password:string):Promise<number | void> {
+        try {
+            const res = await fetch(
+                "https://hours.team4159.org/users/signin",
+                {
+                    method:"POST",
+                    headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    },
+                    body: JSON.stringify({password:password})
+                }
+            )
+            return res.status
+        } catch(e:unknown){
+            console.log("Could not sign in")
+            console.log(e)
+        }
+    }
+
+    public async signOut(password:string):Promise<number | void> {
+        try {
+            const res = await fetch(
+                "https://hours.team4159.org/users/signout",
+                {
+                    method:"POST",
+                    headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    },
+                    body: JSON.stringify({password:password})
+                }
+            )
+            return res.status
+        } catch(e:unknown){
+            console.log("Could not sign out")
+            console.log(e)
+        }
     }
 }
 export default DataAccess
