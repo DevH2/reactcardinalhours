@@ -6,6 +6,7 @@ import bg from './Images/redgearbg (2).jpg'
 import settingIcon from './Images/output-onlinepngtools (3).png'
 import mobilebg from './Images/redgearbg (2).jpg'
 import SignInSignOut from './Components/SignInSignOut';
+import AddSession from "./Components/AddSession";
 import CreateNewUser from './Components/CreateNewUser';
 import SearchBar from './Components/SearchBar.jsx';
 import { Snackbar, SnackbarContent } from '@material-ui/core';
@@ -92,7 +93,8 @@ class App extends Component {
                   sOutHandleOpen={this.sOutHandleOpen} 
                   setCurrentUser={this.setCurrentUser}
                   invalidPassHandleOpen={this.invalidPassHandleOpen}
-                  />
+                />
+                <AddSession />
               </div>
             </div> 
 
