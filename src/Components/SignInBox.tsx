@@ -54,19 +54,19 @@ const SignInBox = (props:SignInBoxProps):JSX.Element => {
 
     const handleSignIn = async (password:string):Promise<void> => {
         if(!passwordText.trim()) return props.handleSnackbarOpen("Please enter a non-empty password")
-        const user:User = await DataAccess.getInstance().get(password)
+        const user:User = await DataAccess.getInstance().get(password, props.handleSnackbarOpen)
         if(user.signedIn === 0){
-            DataAccess.getInstance().signIn(password)
+            DataAccess.getInstance().signIn(password, user.name, props.handleSnackbarOpen)
             .then(_ => DataAccess.getInstance().getAll()
             .then(users => setUsers(users)))
-            props.handleSnackbarOpen(`Signed in as ${user.name}`)
-        } else {
+            //props.handleSnackbarOpen(`Signed in as ${user.name}`)
+        } else if(user.signedIn === 1) {
             //Total time does not update
-            DataAccess.getInstance().signOut(password)
+            DataAccess.getInstance().signOut(password, user.name, props.handleSnackbarOpen)
             .then(_ => DataAccess.getInstance().getAll()
             .then(users => setUsers(users)))
-            props.handleSnackbarOpen(`Signed out as ${user.name}`)
-        }
+            //props.handleSnackbarOpen(`Signed out as ${user.name}`)
+        } 
         //DataAccess.getInstance().getAll().then(users => setUsers(users))
         setPasswordText("")
     }

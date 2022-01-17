@@ -34,7 +34,7 @@ class DesktopComponent extends Component<DesktopComponentProps, DesktopComponent
     }
 
     componentDidUpdate(_:DesktopComponentProps, prevState: DesktopComponentState){
-        console.log("Component updated", prevState)
+        
     }
 
     render(){

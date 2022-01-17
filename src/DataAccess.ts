@@ -11,26 +11,29 @@ class DataAccess {
         return this.dataAccess;
     }
 
-    public async getAll():Promise<any[]>{
+    public async getAll(openSnackbar: (msg:string) => void = () =>{}):Promise<any[]>{
         try {
             const res = await fetch("https://hours.team4159.org/users/getusers")
             const users = await res.json();
             if(res.ok) return users as any[];
-            else return []
+            else{
+                openSnackbar("Could not retrieve users")
+                return []
+            }
         } catch {
             console.log("Could not get users")
             return []
         }
     }
 
-    public async get(password:string):Promise<any>{
+    public async get(password:string, openSnackbar: (msg:string) => void = () =>{}):Promise<any>{
         try {
             const res = await fetch(`https://hours.team4159.org/users/getuserdata?password=${password}`)
             const userData = await res.json();
-            if(res.ok) return userData;
+            if(res.ok)return userData;
             else console.log("Could not retrieve user data")
-            
         } catch(e:unknown) {
+            openSnackbar("Invalid password")
             console.log(e)
             return console.log("Could not get user data")
         }
@@ -68,7 +71,7 @@ class DataAccess {
 
     }
 
-    public async signIn(password:string):Promise<number | void> {
+    public async signIn(password:string, name:string, openSnackbar: (msg:string) => void = () =>{}):Promise<number | void> {
         try {
             const res = await fetch(
                 "https://hours.team4159.org/users/signin",
@@ -80,14 +83,20 @@ class DataAccess {
                     body: JSON.stringify({password:password})
                 }
             )
-            return res.status
+            if(res.ok){
+                openSnackbar(`Signed in as ${name}`)
+                return res.status
+            } else {
+                openSnackbar(`Unable to sign in as ${name}`)
+            }
         } catch(e:unknown){
+            openSnackbar(`Unable to sign in as ${name}`)
             console.log("Could not sign in")
             console.log(e)
         }
     }
 
-    public async signOut(password:string):Promise<number | void> {
+    public async signOut(password:string, name:string, openSnackbar: (msg:string) => void = () =>{}):Promise<number | void> {
         try {
             const res = await fetch(
                 "https://hours.team4159.org/users/signout",
@@ -99,8 +108,14 @@ class DataAccess {
                     body: JSON.stringify({password:password})
                 }
             )
-            return res.status
+            if(res.ok){
+                openSnackbar(`Signed out as ${name}`)
+                return res.status
+            } else {
+                openSnackbar(`Unable to sign out as ${name}`)
+            }
         } catch(e:unknown){
+            openSnackbar(`Unable to sign out as ${name}`)
             console.log("Could not sign out")
             console.log(e)
         }

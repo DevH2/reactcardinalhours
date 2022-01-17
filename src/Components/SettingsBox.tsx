@@ -42,7 +42,7 @@ const SettingsBox = ():JSX.Element => {
 
     const checkBox:JSX.Element = <Checkbox style={{color:"#ff073a"}} onChange={(event:ChangeEvent<HTMLInputElement>, checked:boolean):void => (setIsShowAdminPass(checked))}/>
     const handleOnFocus = (event:FocusEvent<HTMLInputElement>):void => setIsFocused(true)
-    const handleKeyDown = (e:React.KeyboardEvent<HTMLDivElement>) => {if(isFocused) setCurrentKey(e.key)}
+    const handleKeyDown = (event:React.KeyboardEvent<HTMLDivElement>) => {if(isFocused) setCurrentKey(event.key)}
     const handleOnBlur = (event:FocusEvent<HTMLInputElement>):void => setIsFocused(false)
     
     

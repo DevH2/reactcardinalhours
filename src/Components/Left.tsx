@@ -45,6 +45,7 @@ const Left = (props:LeftProps):JSX.Element => {
             <Typography sx={styles.title}>Users {date}</Typography>
             <Searchbar/>
             <div>
+                {/*signedIn 0 means signed out, and 1 means signed in; u also stands for user */}
                 {users.map((u:User) => <UserCard name={u.name} signedIn={u.signedIn} timeIn={u.timeIn} totalTime={u.totalTime}/>)}
             </div>
         </Box>
