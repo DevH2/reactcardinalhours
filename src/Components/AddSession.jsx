@@ -86,6 +86,7 @@ function AddSession() {
 
     return (
         <div className={"add-session-container"}>
+            <h4 className={"missing-hours"}>Log Missing Hours Below:</h4>
             <div>Enter Password:</div>
             <input type={"password"} className={"input"} value={passwordValue} onChange={handleUserInput} onKeyPress={handleUserKeypress} />
             <div className={"time-text"}>Start Time: </div>
