@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DateTimePicker from 'react-datetime-picker'
 import { Box, Button, TextField } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 
 const styles = (theme: any) => ({
     snackBar: {
@@ -27,6 +28,7 @@ const mStyles = {
         '&:hover': {
             background: 'rgba(255,7,58,0.9)',
         },
+        marginTop:"2em"
      },
 }
 toast.configure()
@@ -122,12 +124,13 @@ function AddSessionBox() {
                     onChange={setEndTime}
                     value={endTime}
                 />
-                <Button sx={mStyles.button} className={"buttons"} onClick={() => { handleAddSession(passwordValue, startTime, endTime) }}>Add Session</Button>
+                <LoadingButton sx={mStyles.button} className={"buttons"} onClick={() => { handleAddSession(passwordValue, startTime, endTime) }}>Add Session</LoadingButton>
             </Box>
             </div>
         </Box>
     )
-}
+
+} 
 
 //This HOC breaks the app for some reason
 export default /*withStyles(styles)*/(AddSessionBox)

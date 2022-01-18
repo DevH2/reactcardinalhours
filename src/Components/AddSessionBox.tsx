@@ -10,6 +10,7 @@ const styles = (theme: any) => ({
         marginTop: '10%',
     }
 })
+//Copy and pasted from add_session_touch_up
 toast.configure()
 function AddSessionBox() {
     const [startTime, setStartTime] = useState<any>(new Date());
@@ -109,4 +110,4 @@ function AddSessionBox() {
 }
 
 //This HOC breaks the app for some reason(path issues)
-export default /*withStyles(styles)*/(AddSessionBox)
+export default withStyles(styles)(AddSessionBox)
