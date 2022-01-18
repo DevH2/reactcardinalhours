@@ -40,20 +40,37 @@ const UserCard = (props:UserCardProps):JSX.Element => {
     const [displayedTime, setDisplayedTime]: [number, Dispatch<SetStateAction<number>>] = useState(0)
     const {name, timeIn, totalTime, signedIn} = props
     
-    const [users, setUsers] = useContext(UsersContext)
-    useEffect(():void => {
+    const [users, setUsers, socket] = useContext(UsersContext)
+
+    //
+    useEffect(():any => {
         //console.log(displayedTime)
+        socket?.addEventListener('message', (event:MessageEvent):void => {
+            if(event.data === "Sign in update" || event.data === "Sign out update"  ){
+                DataAccess.getInstance().getAll().then(users => setUsers(users))
+                setDisplayedTime(0)
+            } 
+        })
+        return () => {
+            socket?.removeEventListener('message', (event:MessageEvent):void => {
+            if(event.data === "Sign in update" || event.data === "Sign out update" ){
+                DataAccess.getInstance().getAll().then(users => setUsers(users))
+                setDisplayedTime(0)
+            } 
+            })
+            
+        }
     }, [])
 
     useEffect(():void => {
         if(signedIn === 0) setDisplayedTime(0)
-
         //Without this line, the total time only updates on sign in
         if(signedIn === 0) DataAccess.getInstance().getAll().then(users => setUsers(users))
     }, [signedIn])
 
     //It might be better to do this in the parent node with foreach, but I am lazy
     useEffect(() => {
+        //TODO: Implement time correction and remove reloads
         const interval:NodeJS.Timer = setInterval(() => {
             if(!signedIn) return
             setDisplayedTime(displayedTime+1)

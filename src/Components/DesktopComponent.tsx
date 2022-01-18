@@ -4,6 +4,7 @@ import DataAccess from "../DataAccess";
 import Left from "./Left";
 import Right from "./Right";
 import '../App.css'
+import { Socket } from "dgram";
 
 const styles = {
     container: {
@@ -15,13 +16,15 @@ export const UsersContext:Context<any[]> = createContext<any[]>([])
 
 type DesktopComponentProps = {}
 type DesktopComponentState = {
-    users: any[] | Promise<any[]>
+    users: any[] | Promise<any[]>;
+    socket?: WebSocket
 }
 class DesktopComponent extends Component<DesktopComponentProps, DesktopComponentState> {
     constructor(props:DesktopComponentProps){
         super(props)
         this.state = {
-            users:[]
+            users:[],
+            socket: new WebSocket("wss://hours.team4159.org/websocket")
         }
     }
 
@@ -31,6 +34,16 @@ class DesktopComponent extends Component<DesktopComponentProps, DesktopComponent
 
     componentDidMount():void {
          DataAccess.getInstance().getAll().then(usersPromise => this.setUsers(usersPromise))
+         
+    }
+
+    componentWillUnmount():void {
+        this.state.socket?.removeEventListener('open', (event:Event):void => {
+            console.log("Opened connection ")
+        })
+        this.state.socket?.addEventListener('message', (event:MessageEvent):void => {
+            if(event.data === "Sign in update" || event.data === "Sign out update") DataAccess.getInstance().getAll().then(users => this.setUsers(users))
+        })
     }
 
     componentDidUpdate(_:DesktopComponentProps, prevState: DesktopComponentState): void{
@@ -40,7 +53,7 @@ class DesktopComponent extends Component<DesktopComponentProps, DesktopComponent
     render(){
         return (
             <Box sx={styles.container}>
-                <UsersContext.Provider value={[this.state.users, this.setUsers]}>
+                <UsersContext.Provider value={[this.state.users, this.setUsers, this.state.socket]}>
                     <Left/>
                     <Right/>
                 </UsersContext.Provider>
