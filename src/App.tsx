@@ -4,6 +4,7 @@ import './App.css';
 import { Component } from 'react';
 import DesktopComponent from './Components/DesktopComponent';
 import DataAccess from './DataAccess';
+import MobileComponent from './Components/Mobile/MobileComponent';
 type AppProps = {
 
 }
@@ -14,6 +15,12 @@ type AppProps = {
 
     }
   }
+  getMobile():boolean {
+    const platforms = [/Android/i, /webOS/i, /iPhone/i, /iPad/i, /iPod/i, /BlackBerry/i, /Windows Phone/i]; 
+    return platforms.some(platform => {
+        return navigator.userAgent.match(platform)
+    })
+  }
   render(){
     return (
       <DesktopComponent/>
@@ -21,7 +28,7 @@ type AppProps = {
   }
   componentDidMount():void{
     //Reloading since the timers drastically slow when the tab is inactive; 
-    //I am too lazy to do any date subtraction to correct the times.
+    //I am too lazy to do any date subtraction to correct the times for now. The time will only be off by a min at most
     document.addEventListener('visibilitychange', () => {
       if(document.visibilityState === "visible") window.location.reload()
     })

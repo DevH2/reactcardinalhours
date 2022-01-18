@@ -110,4 +110,4 @@ function AddSessionBox() {
 }
 
 //This HOC breaks the app for some reason(path issues)
-export default withStyles(styles)(AddSessionBox)
+export default /*withStyles(styles)*/(AddSessionBox)

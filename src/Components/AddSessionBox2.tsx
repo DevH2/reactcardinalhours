@@ -3,7 +3,7 @@ import {withStyles } from '@material-ui/core'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DateTimePicker from 'react-datetime-picker'
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
 const styles = (theme: any) => ({
@@ -11,7 +11,7 @@ const styles = (theme: any) => ({
         marginTop: '10%',
     },
 })
-
+//This one is just a test on my part, pay no attention to it
 const mStyles = {
     container: {
         display:"flex",
@@ -20,7 +20,7 @@ const mStyles = {
         padding:"3em 4em 3em 4em",
         transform:"translate(0,20%)",
         borderRadius:"10px",
-       boxShadow: "0 0 5px 5px #0f0c08"
+       boxShadow: "0 0 5px 5px #0f0c08",
     },
     button: {
         backgroundColor:"#ff073a",
@@ -29,7 +29,13 @@ const mStyles = {
             background: 'rgba(255,7,58,0.9)',
         },
         marginTop:"2em"
-     },
+    },
+    text: {
+        color:"#595959",
+        fontWeight:"bold",
+        textAlign:"center"
+    }
+
 }
 toast.configure()
 function AddSessionBox() {
@@ -110,8 +116,8 @@ function AddSessionBox() {
     return (
         <Box sx={mStyles.container}>
             <div className={"add-session-container"}>
-            <div>Add Session:</div>
-            <TextField type={"password"} className={"input"} value={passwordValue} onChange={handleUserInput} onKeyPress={handleUserKeypress} />
+            <Typography sx={mStyles.text}>Add Session:</Typography>
+            <TextField label="Password" type={"password"} className={"input"} value={passwordValue} onChange={handleUserInput} onKeyPress={handleUserKeypress} />
             <div className={"time-text"}>Start Time: </div>
             <DateTimePicker
                 className={"date-time-picker"}
