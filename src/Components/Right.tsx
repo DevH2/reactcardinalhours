@@ -5,6 +5,8 @@ import SignInBox from "./SignInBox";
 import {TabContext, TabList, TabPanel} from "@mui/lab";
 import RegisterBox from "./RegisterBox";
 import SettingsBox from "./SettingsBox";
+import AddSessionBox from "./AddSessionBox";
+import AddSessionBox2 from "./AddSessionBox2";
 
 const styles = {
     container: {
@@ -64,6 +66,7 @@ const Right = ():JSX.Element => {
                     <Tab label={<span style={styles.tabLabel}>Sign In</span>} value="1"/>
                     <Tab label={<span style={styles.tabLabel}>Register Users</span>} value="2"/>
                     <Tab label={<span style={styles.tabLabel}>Settings</span>} value="3"/>
+                    <Tab label={<span style={styles.tabLabel}>Amend Hours</span>} value="4"/>
                 </TabList>
                 <TabPanel value="1">
                     <SignInBox handleSnackbarOpen={handleSnackbarOpen}/>
@@ -74,6 +77,9 @@ const Right = ():JSX.Element => {
                     </TabPanel>
                     <TabPanel value="3">
                         <SettingsBox handleSnackbarOpen={handleSnackbarOpen}/>
+                    </TabPanel>
+                    <TabPanel value="4">
+                        <AddSessionBox2/>
                     </TabPanel>
                 </AdminDialogContext.Provider>
             </TabContext>
