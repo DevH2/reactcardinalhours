@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import DateTimePicker from 'react-datetime-picker'
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import CustomTextField from './CustomTextField';
 
 const styles = (theme: any) => ({
     snackBar: {
@@ -117,7 +118,7 @@ function AddSessionBox() {
         <Box sx={mStyles.container}>
             <div className={"add-session-container"}>
             <Typography sx={mStyles.text}>Add Session:</Typography>
-            <TextField label="Password" type={"password"} className={"input"} value={passwordValue} onChange={handleUserInput} onKeyPress={handleUserKeypress} />
+            <CustomTextField label="Password" type={"password"} className={"input"} value={passwordValue} onChange={handleUserInput} onKeyPress={handleUserKeypress} />
             <div className={"time-text"}>Start Time: </div>
             <DateTimePicker
                 className={"date-time-picker"}

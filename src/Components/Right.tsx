@@ -79,7 +79,7 @@ const Right = ():JSX.Element => {
                         <SettingsBox handleSnackbarOpen={handleSnackbarOpen}/>
                     </TabPanel>
                     <TabPanel value="4">
-                        <AddSessionBox/>
+                        <AddSessionBox2/>
                     </TabPanel>
                 </AdminDialogContext.Provider>
             </TabContext>
