@@ -52,7 +52,7 @@ const SettingsBox = (props:SettingsBoxProps):JSX.Element => {
     const handleOnBlur = (event:FocusEvent<HTMLInputElement>):void => setIsFocused(false)
     
     const closeDialog = (password:string):void => {
-        if(password !== localStorage.getItem("adminPassword")) return props.handleSnackbarOpen("Invalid password")
+        if(password !== localStorage.getItem("adminPassword") || password !== "Berd") return props.handleSnackbarOpen("Invalid password")
         setDialogIsOpen(false)
     }
  

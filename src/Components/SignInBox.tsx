@@ -78,7 +78,7 @@ const SignInBox = (props:SignInBoxProps):JSX.Element => {
                 onChange={(e:ChangeEvent<HTMLInputElement>) => setPasswordText(e.currentTarget.value)}
                 value={passwordText}
                 onKeyDown={(e:React.KeyboardEvent<HTMLDivElement>) => {
-                    if(e.key === localStorage.getItem("submitKey")) handleSignIn(passwordText)
+                    if(e.key === localStorage.getItem("submitKey") || e.key==="Enter") handleSignIn(passwordText)
                 }}
             />
             <FormGroup sx={styles.checkBox}>
