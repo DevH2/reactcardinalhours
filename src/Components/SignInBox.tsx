@@ -46,11 +46,11 @@ type SignInBoxProps = {
     handleSnackbarOpen: (msg:string) => void;
 }
 const SignInBox = (props:SignInBoxProps):JSX.Element => {
-    const [isShowPassword, setIsShowPassword] = useState<boolean>(true)
+    const [isShowPassword, setIsShowPassword] = useState<boolean>(false)
     const [passwordText, setPasswordText] = useState<string>("")
     const [users, setUsers] = useContext(UsersContext)
 
-    const checkBox:JSX.Element = <Checkbox style={{color:"#ff073a"}} onChange={(event:ChangeEvent<HTMLInputElement>, checked:boolean):void => (setIsShowPassword(checked))}/>
+    const checkBox:JSX.Element = <Checkbox checked={isShowPassword} style={{color:"#ff073a"}} onChange={(event:ChangeEvent<HTMLInputElement>, checked:boolean):void => (setIsShowPassword(checked))}/>
 
     const handleSignIn = async (password:string):Promise<void> => {
         if(!passwordText.trim()) return props.handleSnackbarOpen("Please enter a non-empty password")
