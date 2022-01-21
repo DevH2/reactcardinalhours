@@ -74,7 +74,7 @@ const SignInBox = (props:SignInBoxProps):JSX.Element => {
             <Typography sx={styles.enterPassText}>Enter Your Password</Typography>
             <CustomTextField 
                 label="Password" 
-                type={isShowPassword ? "password":"text"} 
+                type={isShowPassword ? "text":"password"} 
                 onChange={(e:ChangeEvent<HTMLInputElement>) => setPasswordText(e.currentTarget.value)}
                 value={passwordText}
                 onKeyDown={(e:React.KeyboardEvent<HTMLDivElement>) => {

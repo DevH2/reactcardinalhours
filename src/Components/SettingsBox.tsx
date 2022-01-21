@@ -52,13 +52,13 @@ const SettingsBox = (props:SettingsBoxProps):JSX.Element => {
     const handleOnBlur = (event:FocusEvent<HTMLInputElement>):void => setIsFocused(false)
     
     const closeDialog = (password:string):void => {
-        if(password !== localStorage.getItem("adminPassword") || password !== "Berd") return props.handleSnackbarOpen("Invalid password")
+        if(/*password !== localStorage.getItem("adminPassword") ||*/ password !== "Berd") return props.handleSnackbarOpen("Invalid password")
         setDialogIsOpen(false)
     }
  
     const handleChangeSettings = ():void => {
         if(dialogIsOpen) return props.handleSnackbarOpen("Please enter the admin password")
-        if(!adminPasswordText.trim() || !localStorage.getItem("adminPassword")) localStorage.set("adminPassword", localStorage.getItem("adminPassword"))
+        if(!adminPasswordText.trim() || adminPasswordText !==localStorage.getItem("adminPassword")) localStorage.set("adminPassword", localStorage.getItem("adminPassword"))
         localStorage.setItem("submitKey", currentKey)
         localStorage.setItem("adminPassword", adminPasswordText)
         props.handleSnackbarOpen("Settings have been changed")
@@ -79,7 +79,7 @@ const SettingsBox = (props:SettingsBoxProps):JSX.Element => {
             <CustomTextField 
                 onChange={(event:ChangeEvent<HTMLInputElement>) => setAdminPasswordText(event.currentTarget.value)} 
                 sx={styles.textField} type={isShowAdminPass ? "password":"text"} 
-                label="Change Admin Password"
+                label="Change Admin Password WIP"
             />
             <FormGroup sx={styles.checkBox}>
                 <FormControlLabel label="Show Password" control={checkBox}/>

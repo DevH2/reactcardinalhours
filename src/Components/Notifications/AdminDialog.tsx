@@ -50,7 +50,7 @@ const AdminDialog = (props:AdminDialogProps):JSX.Element => {
                 <DialogTitle sx={styles.title}>Enter Admin Password</DialogTitle>
                 <DialogActions sx={styles.actionsContainer}>
                     <CustomTextField 
-                        onChange={(event:ChangeEvent<HTMLInputElement>) => setPasswordText(event.currentTarget.value)} 
+                        onChange={(event:ChangeEvent<HTMLInputElement>) => {setPasswordText(event.currentTarget.value)}} 
                         sx={styles.textField} label="Password"
                     />
                     <Button sx={styles.button} onClick={() => props.closeDialog(passwordText)}>
