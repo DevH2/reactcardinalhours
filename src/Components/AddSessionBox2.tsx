@@ -85,7 +85,7 @@ function AddSessionBox() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({password: userPassword, startTime: utcStartTime, endTime: utcEndTime})
+            body: JSON.stringify({password: userPassword, startTime: startTime.getTime(), endTime: endTime.getTime()})
         }).then((response) => {
             if (response.ok) {
                 sucess();
