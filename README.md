@@ -1,6 +1,6 @@
 # Note  
-This repo should hopefully serve as the new cardinalhours frontend repo until Devin transfers ownership
-Happy coding!
+This repo should hopefully serve as the new cardinalhours frontend repo until Devin transfers ownership  
+Happy coding!  
 
 # Getting Started with Create React App
 
