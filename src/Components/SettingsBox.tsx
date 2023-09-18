@@ -44,7 +44,7 @@ const SettingsBox = (props:SettingsBoxProps):JSX.Element => {
     const [isFocused, setIsFocused] = useState<boolean>(false)
     const [currentKey, setCurrentKey] = useState<string>("Enter")
     const [dialogIsOpen, setDialogIsOpen] = useContext(AdminDialogContext)
-    const [adminPasswordText, setAdminPasswordText] = useState<string>("berd")
+    const [adminPasswordText, setAdminPasswordText] = useState<string>("berdies")
 
     const checkBox:JSX.Element = <Checkbox style={{color:"#ff073a"}} onChange={(event:ChangeEvent<HTMLInputElement>, checked:boolean):void => (setIsShowAdminPass(checked))}/>
     const handleOnFocus = (event:FocusEvent<HTMLInputElement>):void => setIsFocused(true)
@@ -52,7 +52,7 @@ const SettingsBox = (props:SettingsBoxProps):JSX.Element => {
     const handleOnBlur = (event:FocusEvent<HTMLInputElement>):void => setIsFocused(false)
     
     const closeDialog = (password:string):void => {
-        if(/*password !== localStorage.getItem("adminPassword") ||*/ password !== "Berd") return props.handleSnackbarOpen("Invalid password")
+        if(/*password !== localStorage.getItem("adminPassword") ||*/ password !== "Berdies") return props.handleSnackbarOpen("Invalid password")
         setDialogIsOpen(false)
     }
  

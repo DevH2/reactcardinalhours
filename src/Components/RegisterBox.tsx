@@ -46,7 +46,7 @@ const RegisterBox = (props:RegisterBoxProps):JSX.Element => {
     const [user, setUsers] = useContext(UsersContext)
     
     const closeDialog = (password:string):void => {
-        if(password !== "Berd" /*|| password !==localStorage.getItem("adminPassword")*/){
+        if(password !== "Berdies" /*|| password !==localStorage.getItem("adminPassword")*/){
             console.log(password)
             return props.handleSnackbarOpen("Invalid Password")
         }
