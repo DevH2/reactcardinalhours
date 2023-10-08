@@ -3,6 +3,7 @@ import React, { ChangeEvent, FocusEvent, useContext, useEffect, useState } from 
 import AdminDialog from './Notifications/AdminDialog'
 import CustomTextField from './CustomTextField'
 import { AdminDialogContext } from './Right'
+import DataAccess from "../DataAccess"
 
 const styles = {
     container: {
@@ -64,29 +65,43 @@ const SettingsBox = (props:SettingsBoxProps):JSX.Element => {
         props.handleSnackbarOpen("Settings have been changed")
     }
 
+    const syncUsers = async (): Promise<void> => {
+        if(dialogIsOpen) return props.handleSnackbarOpen("Please enter the admin password")
+        
+        const res = await DataAccess.getInstance().syncUsers();
+
+        if (res === 200) {
+            props.handleSnackbarOpen("Syncing users");
+        }
+    }
+
     return (
         <Paper sx={styles.container}>
-            <Typography sx={styles.enterSettingsText}>Configure Controls</Typography>
-            <CustomTextField 
-                label="Press a Key" 
-                value={currentKey} 
-                onKeyDown={(e:React.KeyboardEvent<HTMLDivElement>) => handleKeyDown(e)} 
-                onBlur={(e:FocusEvent<HTMLInputElement>) => handleOnBlur(e)} 
-                onFocus={(e:FocusEvent<HTMLInputElement>) => handleOnFocus(e)} 
-                sx={styles.textField} 
-                InputProps={{readOnly:true}}
-            />
-            <CustomTextField 
-                onChange={(event:ChangeEvent<HTMLInputElement>) => setAdminPasswordText(event.currentTarget.value)} 
-                sx={styles.textField} type={isShowAdminPass ? "password":"text"} 
-                label="Change Admin Password WIP"
-            />
-            <FormGroup sx={styles.checkBox}>
-                <FormControlLabel label="Show Password" control={checkBox}/>
-            </FormGroup>
-            <Button onClick={handleChangeSettings} sx={styles.button} variant="contained" size="large">
-                <Typography>Submit</Typography>
-            </Button>
+                <Typography sx={styles.enterSettingsText}>Configure Controls</Typography>
+                <CustomTextField 
+                    label="Press a Key" 
+                    value={currentKey} 
+                    onKeyDown={(e:React.KeyboardEvent<HTMLDivElement>) => handleKeyDown(e)} 
+                    onBlur={(e:FocusEvent<HTMLInputElement>) => handleOnBlur(e)} 
+                    onFocus={(e:FocusEvent<HTMLInputElement>) => handleOnFocus(e)} 
+                    sx={styles.textField} 
+                    InputProps={{readOnly:true}}
+                />
+                <CustomTextField 
+                    onChange={(event:ChangeEvent<HTMLInputElement>) => setAdminPasswordText(event.currentTarget.value)} 
+                    sx={styles.textField} type={isShowAdminPass ? "password":"text"} 
+                    label="Change Admin Password WIP"
+                />
+                <FormGroup sx={styles.checkBox}>
+                    <FormControlLabel label="Show Password" control={checkBox}/>
+                </FormGroup>
+                <Button onClick={handleChangeSettings} sx={styles.button} variant="contained" size="large">
+                    <Typography>Submit</Typography>
+                </Button>
+                <br></br>
+                <Button onClick={syncUsers} sx={styles.button} variant="contained" size="large">
+                    <Typography>Sync Users</Typography>
+                </Button>
             <AdminDialog closeDialog={closeDialog} isOpen={dialogIsOpen}/>
         </Paper>
     )

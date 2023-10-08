@@ -127,5 +127,29 @@ class DataAccess {
             console.log(e)
         }
     }
+
+    public async syncUsers(openSnackbar: (msg:string) => void = () =>{}):Promise<number | void> {
+        try {
+            const res = await fetch(
+                "https://hours.team4159.org/users/syncusers",
+                {
+                    method:"POST",
+                    headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    },
+                }
+            )
+            if(res.ok){
+                openSnackbar("Syncing users")
+                return res.status
+            } else {
+                openSnackbar("Unable to sync users")
+            }
+        } catch (e: unknown) {
+            openSnackbar("Unable to sync users");
+            console.log("Could not sync users")
+            console.log(e)
+        }
+    }
 }
 export default DataAccess
