@@ -70,8 +70,10 @@ const SettingsBox = (props:SettingsBoxProps):JSX.Element => {
         
         const res = await DataAccess.getInstance().syncUsers();
 
-        if (res === 200) {
+        if (res === 202) {
             props.handleSnackbarOpen("Syncing users");
+        } else {
+            props.handleSnackbarOpen(`HTTP ${res}`);
         }
     }
 
